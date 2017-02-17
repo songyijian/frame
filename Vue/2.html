@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>声明式渲染</title>
+</head>
+<body>
+	vue 是声明式渲染 
+	
+	
+	<script src="src/vue.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		var arr=[1,2,3,4,5];
+		
+		var arr1=[]
+		for(var i=0; i<arr.length;i++){
+			arr1.push(arr[i]*2)
+		}
+		console.log("命令式：",arr1)
+		
+		
+		var arr2=arr.map((item)=>{
+			return item*2;
+		});
+		console.log("声明式：",arr2)
+		
+		
+	</script>
+</body>
+</html>

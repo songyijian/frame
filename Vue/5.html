@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>event</title>
+</head>
+<body>
+	<h1>事件对象</h1>
+	<div id="box">1模版字符串</div>
+
+	
+	<script src="src/vue.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		let temple = `<p><span>{{text}}</span><input type="button" @click="event1" value="字符串模版event" /></p>`
+		new Vue({
+			el:"#box",
+			data:{
+				text:"模版字符串内容"
+			},
+			methods:{
+				event1(){
+					alert(`模版字符串也可以绑定事件`)
+				}
+			},
+			template:temple
+			
+		})
+
+	</script>
+</body>
+</html>

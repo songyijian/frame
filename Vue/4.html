@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>模版</title>
+	<style type="text/css">
+		.fonts{ color: red;font-size: 26px; background: ; }
+	</style>
+</head>
+<body>
+	<h1>1、模版字符串</h1>
+	<div id="box">1模版字符串</div>
+	<h1>2、script标签模版</h1>
+	<div id="box2"></div>
+	<h1>3、render</h1>
+	<div id="box3"></div>
+	
+	
+	<script type="x-template" id="xtemplate">
+		<div>
+			<p>{{text}}</p>
+			<input type="button" v-on:click="event1" value="script标签模版event" />
+		</div>
+	</script>
+	
+	<script src="src/vue.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		let temple = `<p><span>{{text}}</span><input type="button" @click="event1" value="字符串模版event" /></p>`
+		new Vue({
+			el:"#box",
+			data:{
+				text:"模版字符串内容"
+			},
+			methods:{
+				event1(){
+					alert(`模版字符串也可以绑定事件`)
+				}
+			},
+			template:temple
+			
+		})
+
+		new Vue({
+			el:"#box2",
+			data:{
+				text:"script 标签 type=‘x-template’ 模版"
+			},
+			methods:{
+				event1(){
+					alert(`script标签模版 绑定事件`)
+				}
+			},
+			template:'#xtemplate'
+		})
+		
+		
+		
+		
+		new Vue({
+			el:"#box3",
+			data:{
+				text:"script 标签 type=‘x-template’ 模版"
+			},
+			/*就是一个回调函数*/
+			render(createElement){
+				var node = createElement("div",{
+						class:{
+							fonts:true
+						},
+						style:{
+							background:"yellow"
+						},
+						attrs:{
+							title:"add title !!!"
+						},
+						domProps:{
+							//innerHTML:"<h3>这里权重要高于第三个参数</h3>"
+						}
+					},
+					[
+						createElement("p","p text"),
+						createElement("span","span text")
+					]
+				)
+				return node;
+				
+				/*return createElement("div",{
+						class:{
+							fonts:true
+						},
+						style:{
+							background:"yellow"
+						},
+						attrs:{
+							title:"add title !!!"
+						},
+						domProps:{
+							//innerHTML:"<h3>这里权重要高于第三个参数</h3>"
+						}
+					},
+					[
+						createElement("p","p text"),
+						createElement("span","span text")
+					]
+				)*/
+			}
+		})
+		
+		
+		
+	</script>
+</body>
+</html>
