@@ -1,0 +1,106 @@
+<html>
+<head>
+	<meta  charset="utf-8"/>
+	<title>跟帖案例：1灌数据</title>
+	<script src="src/react-with-addons.js"></script>
+	<script src="src/react-dom.js"></script>
+	<script src="src/browser.min.js"></script>
+	<style type="text/css">
+		form{width: 30%; display: inline-block;vertical-align:top;}
+		form input,form textarea{width: 80%}
+		.col-md-8{width: 50%; display: inline-block;vertical-align:top;}
+		li{ border-bottom: 1px solid #999; position: relative; padding-right: 15%}
+		li button{ position: absolute; bottom:2px; right: 0}
+	</style>
+</head>
+<body>
+	<div id="div1"></div>
+
+	<script type="text/babel">
+		var IputR=React.createClass({
+			render:function () {
+				return (
+						<form>
+				            <p>用户名</p> 
+				            <input type="text"  placeholder="用户名"/>
+				            <br/>
+				            <p>留言内容</p> 
+				            <textarea rows="6" placeholder="留言内容"></textarea>
+				            <br/>
+				            <button type="button" >提交</button>
+				        </form>
+						)
+			}
+		});
+		var ListBR=React.createClass({
+			render:function(){
+					console.log(this.props.listDate)
+				return  (
+						<div className="col-md-8">
+				            <h2>留言回复：</h2>
+				            <h2 style={{display:'none'}}>暂无留言，点击左侧添加留言！！！</h2>
+				            <ul>
+				            {
+
+				            	this.props.listDate.map(function(o,i){
+				           			return <ListLR key={i} {...o}/>
+				           		})
+				            }
+				           	</ul>
+				        </div>
+				        )
+			}
+		});
+
+		var ListLR=React.createClass({
+			render:function(){
+				return(
+						<li >
+		                	<p><span >{this.props.userName}</span><span>说:</span></p>
+		               		<p>{this.props.content}</p>
+		                    <button>删除</button>
+		                </li>
+			        )
+			}
+		})
+
+
+		var BoxR=React.createClass({
+			render:function(){
+				return(
+					<div>
+						<IputR/>
+						<ListBR listDate={this.props.listArr}/>
+					</div>
+					)
+			}
+		})
+
+		ReactDOM.render(
+			<BoxR listArr={listArr}/>,
+			document.getElementById('div1'),
+			function(){console.log('ok')}
+		)
+
+
+
+
+
+
+
+		var listArr = [
+						{
+							userName:"user1",
+							content:"留言内容1",
+							_id:Date.now()+1
+						},{
+							userName:"user2",
+							content:"留言内容1",
+							_id:Date.now()
+						}
+					]
+
+
+	</script>
+</body>
+</html>

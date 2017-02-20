@@ -1,0 +1,152 @@
+﻿<html>
+<head>
+	<meta  charset="utf-8"/>
+	<title>跟帖案例：2交互</title>
+	<script src="src/react-with-addons.js"></script>
+	<script src="src/react-dom.js"></script>
+	<script src="src/browser.min.js"></script>
+	<style type="text/css">
+		form{width: 30%; display: inline-block;vertical-align:top;}
+		form input,form textarea{width: 80%}
+		.col-md-8{width: 50%; display: inline-block;vertical-align:top;}
+		li{ border-bottom: 1px solid #999; position: relative; padding-right: 15%}
+		li button{ position: absolute; bottom:2px; right: 0}
+	</style>
+</head>
+<body>
+	<div id="div1"></div>
+
+	<script type="text/babel">
+		var IputR=React.createClass({
+			render:function () {
+				return (
+						<form>
+				            <p>用户名</p> 
+				            <input type="text" ref="input_user" placeholder="用户名"/>
+				            <br/>
+				            <p>留言内容</p> 
+				            <textarea  rows="6" ref="input_text" placeholder="留言内容"></textarea>
+				            <br/>
+				            <button type="button" onClick={this.clickFn}>提交</button>
+				        </form>
+						)
+			},
+			clickFn:function(){
+				var u=this.refs.input_user.value;
+				var t=this.refs.input_text.value;
+				if(u && t){
+					var j={
+						userName:u,
+						content:t,
+						_id:Date.now()
+					}
+					this.props.addList(j)
+					this.refs.input_user.value = this.refs.input_text.value = "";
+				}
+
+			}
+		});
+		var ListBR=React.createClass({
+			render:function(){
+				var yn=this.props.listDate.length ? "none" : "block";
+				return  (
+						<div className="col-md-8">
+				            <h2>留言回复：</h2>
+				            <h2 style={{display:yn}}>暂无留言，点击左侧添加留言！！！</h2>
+				            <ul>
+				            {
+				            	this.props.listDate.map(function(o,i){
+				            		//这里的this.props ，this要传入懂得
+				            		//<ListLR key={i} i={i} {...o} removeList={this.props.removeList}/>
+				           			return <ListLR key={i} {...o} removeList={this.props.removeList}/>
+				           		}.bind(this))
+				            }
+				           	</ul>
+				        </div>
+				        )
+			}
+		});
+
+		var ListLR=React.createClass({
+			render:function(){
+				//console.log("000"+this.props.i)
+				return(
+						<li>
+		                	<p><span >{this.props.userName}</span><span>说:</span></p>
+		               		<p>{this.props.content}</p>
+		                    <button id={this.props.i} onClick={this.removeFn}>删除</button>
+		                    //<button id={this.props.i} onClick={this.removeFn}>删除</button>
+		                </li>
+			        )
+			},
+			removeFn:function (ev) {
+				//console.log(ev.target.id)
+				this.props.removeList(this.props._id)
+			}
+		})
+
+		var BoxR=React.createClass({
+			getInitialState:function(){
+				return {listDate:this.props.listArr}
+
+			},
+			addList:function(data){
+				//addList作为参数，传给子组件
+				//修改数据自动渲染
+				this.setState({listDate:this.state.listDate.concat(data)})
+			},
+			removeList:function(o){
+				//筛选掉 要删除的元素
+				var newArr = this.state.listDate.filter(function (item,index){
+					return item._id !== o
+				});
+
+				this.setState({listDate:newArr});
+			},
+			render:function(){
+				return(
+					<div>
+						<IputR addList={this.addList} />
+						<ListBR listDate={this.state.listDate} removeList={this.removeList}/>
+					</div>
+					)
+			}
+		})
+
+
+
+
+
+
+
+		var listArr = [
+				{
+					userName:"user1",
+					content:"留言内容1",
+					_id:Date.now()+1
+				},{
+					userName:"user2",
+					content:"留言内容1",
+					_id:Date.now()
+				}
+			]
+
+
+
+					
+		ReactDOM.render(
+			<BoxR listArr={listArr}/>,
+			document.getElementById('div1'),
+			function(){console.log('ok')}
+		);
+
+
+		function ajaxfn(argument) {
+			alert("这里是ajaxfn :"+argument)
+		}
+
+
+
+	</script>
+</body>
+</html>

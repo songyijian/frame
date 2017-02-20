@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title> 2、数据交互</title>
+		<script src="src/react.js"></script>
+		<script src="src/react-dom.js"></script>
+		<script src="src/browser.min.js"></script>
+	</head>
+
+	<body>
+	<body>
+	
+		<div id="div1"></div>
+
+		<div id="demo"></div>
+		<script type="text/babel">
+
+			var data={
+				title:'你好：react',
+				text:'成功在一个json对象里面读到了这段内容 。。。 。。。 '
+			}
+
+			var ItemComponent = React.createClass({
+				render:function (){
+					return (
+						<div>
+							<h2>数据交互</h2>
+							<span>{this.props.title}</span>
+							<br/>
+							<span>{this.props.text}</span>
+						</div>
+					)	
+				}
+			});
+
+			//可以单独传值
+			/*ReactDOM.render(
+				<ItemComponent title={data.title} text={data.text}/>,
+				document.getElementById('div1'),
+				function(){
+					console.log('ReactDOM,执行完毕')
+				}
+			)*/
+			
+			//直接传入一个json
+			ReactDOM.render(
+				<ItemComponent {...data}/>,
+				document.getElementById('div1'),
+				function(){
+					console.log('ReactDOM,执行完毕')
+				}
+			)
+
+		</script>
+	</body>
+</html>
+

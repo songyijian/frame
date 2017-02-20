@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title> 4、双向绑定2（react-with-addons）</title>
+
+		<script src="src/react-with-addons.js"></script>
+		<script src="src/react-dom.js"></script>
+		<script src="src/browser.min.js"></script>
+	</head>
+
+	<body>
+	<body>
+		<div id="div1"></div>
+
+		<script type="text/babel">
+
+			var data={
+				values:'输入内容',
+				bootomv:'提交'
+			}
+
+			var ItemComponent = React.createClass({
+				//这个插件就是一个封装好的onChange
+				mixins:[React.addons.LinkedStateMixin],
+				getInitialState:function(){
+					return {mes:this.props.values}
+				},
+				render:function (){
+					//valueLink管理初始值
+					return (
+						<div>
+							<h2>双向绑定（react-with-addons===valueLink）</h2>
+							<input type="text" valueLink={this.linkState('mes')} />
+							<input type="submit" value={this.props.bootomv}/>
+							<br/>
+							<p>{this.state.mes}</p>
+						</div>
+					)	
+				}
+				/*,changeFn:function(ev){
+					this.setState({mes:ev.target.value})
+				}*/
+			});
+
+			//直接传入一个json
+			ReactDOM.render(
+				<ItemComponent {...data}/>,
+				document.getElementById('div1'),
+				function(){
+					console.log('ReactDOM,执行完毕')
+				}
+			)
+
+		</script>
+	</body>
+</html>
+

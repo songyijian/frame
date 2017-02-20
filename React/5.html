@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title> 5、拆分组件 增删改查</title>
+		<script src="src/react-with-addons.js"></script>
+		<script src="src/react-dom.js"></script>
+		<script src="src/browser.min.js"></script>
+		<script src="src/pubsub.js"></script>
+		<style>
+			li{ background: rgba(0,0,0,0.2); margin-bottom:10px; }
+			li>i{display: inline-block; height:20px; width: 30px; background: yellow; border: 1px solid #999; text-align:center;}
+		</style>
+	</head>
+
+	<body>
+		<p>
+			订阅发布pubsub.js<br />
+		</p>
+		<div id="div1"></div>
+
+		<script type="text/babel">
+			var ItemComponent = React.createClass({
+				mixins:[React.addons.LinkedStateMixin],	 //这个插件就是一个封装好的onChange
+				getInitialState:function(){
+					return this.props;
+				},
+				render:function (){
+					return (
+						<div>
+							<h2>5、拆分 正删改查</h2>
+							<input type="text" valueLink={this.linkState('values')} ref="inputT" />
+							<input type="submit" value={this.state.bootomv} ref="btn" onClick={this.addFn}/>
+							<br/>
+							<p>{this.state.values}</p>
+							<ul>
+								{
+									this.state.listT.map(function(o,i){
+										return <LiList key={i} index={i} data={o}/>
+									}.bind(this))
+								}
+							</ul>
+						</div>
+					)	
+				},
+				addFn:function (ev) {
+					var v=this.refs.inputT.value;
+					console.log(v)
+					alert(v)
+				},
+				componentDidMount:function(){
+					PubSub.subscribe('removeFn',function(o,n1){
+						console.log(o)
+						console.log(n1)
+
+					}.bind(this))
+				}
+			});
+
+			var LiList=React.createClass({
+				removeFn:function(ev){
+					console.log(ev.target)
+					
+					PubSub.publish("removeFn",this.props.index)
+					console.log(this.props.index)
+				},
+				render:function(){
+					return (
+						<li><span>{this.props.data}</span> <i onClick={this.removeFn}>x</i></li>
+					)
+				}
+			});
+
+
+
+
+			var data={
+				values:'输入内容111',
+				bootomv:'取值',
+				listT:['列表','列表','列表']
+			};
+
+			//直接传入一个json
+			ReactDOM.render(
+				<ItemComponent {...data}/>,
+				document.getElementById('div1'),
+				function(){
+					console.log('ReactDOM,执行完毕')
+				}
+			);
+
+		</script>
+	</body>
+</html>
+
