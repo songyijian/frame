@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>用react写表单验证</title>
+    <script src="src/react-with-addons.js"></script>
+    <script src="src/react-dom.js"></script>
+    <script src="src/browser.min.js"></script>
+    <style>
+    .fl{float: left;}
+    .fr{float: right;}
+    .ui-pagnation {display: block; margin-top: 50px; color: #535353; line-height: 29px; text-align: center }
+    .ui-pagnation a {float: left; min-width: 30px; height: 30px; padding: 0 7px; vertical-align: middle; text-decoration: none; cursor: pointer;}
+    .ui-pagnation .next,.ui-pagnation .prev {margin: 0 9px; background-color: #f3f4f8; border: 1px solid #00a0e9 }
+    .ui-pagnation .next:before,.ui-pagnation .prev:before {content: '<'; color: #00a0e9; font-size: 14px }
+    .ui-pagnation .next:hover,.ui-pagnation .prev:hover {border-color: #50c8ff }
+    .ui-pagnation .next:hover:before,.ui-pagnation .prev:hover:before {color: #50c8ff }
+    .ui-pagnation .disable.next,.ui-pagnation .prev.disable {background-color: #f3f4f8; border-color: #a0a0a0; cursor: no-drop;}
+    .ui-pagnation .disable.next:before,.ui-pagnation .prev.disable:before {color: #a0a0a0 }
+    .ui-pagnation .next:before {content: '>'}
+    .ui-pagnation .num {margin-left: -1px; padding: 0 7px; border: 1px solid #e5e5e5; color: #707070 }
+    .ui-pagnation .num.current,.ui-pagnation .num:hover {background-color: #a7bbcb; border-color: #a7bbcb; color: #fff }
+    .ui-pagnation .ellipsis {width: 42px; height: 30px; color: #707070; line-height: 30px }
+    .ui-pagnation input {width: 44px; height: 24px; border: 1px solid #eee; text-align: center }
+    .ui-pagnation .page-go {min-width: 60px; margin-left: 10px; margin-right: 10px; background-color: #a7bbcb; border: 1px solid #879cac; color: #fff }
+    .ui-pagnation .page-go:hover {background-color: #87a2b8; border-color: #698397 }
+    </style>
+</head>
+<body>
+<div id="demo"></div>
+<script type="text/babel">
+
+var Page = React.createClass({
+    getInitialState: function() {
+        return {current: 1, value : ''};
+    },
+    handClick : function(e){
+        let sel = this;
+        return function(){
+            sel.setState({current : e});
+        }
+    },
+    handChange : function(e){
+        this.setState({value : e.target.value})
+    },
+    goNext : function(){
+        let cur = this.state.current;
+        if(cur < this.props.total){
+            this.setState({current : cur + 1});
+        }
+    },
+    goPrev : function(){
+        let cur = this.state.current;
+        if(cur > 1){
+            this.setState({current : cur - 1});
+        }
+    },
+    goPage : function(){
+        var val = this.state.value;
+        if(!/^[1-9]\d*$/.test(val)){
+            alert('页码只能输入大于1的正整数');
+        }else if(parseInt(val) > parseInt(this.props.total)){
+            alert('没有这么多页');
+        }else{
+            this.setState({current : val});
+        }
+    },
+    render : function(){
+        let self = this;
+        let total = this.props.total;
+        let cur = this.state.current;
+        let items = [];
+        let begin;
+        let len;
+        if(total > 5){
+            len = 5;
+            if(cur >= (total-2)){
+                begin = total - 4;
+            }else if(cur <= 3){
+                begin = 1;
+            }else{
+                begin = cur - 2;
+            }
+        }else{
+            len = total;
+            begin = 1;
+        }
+        for(let i = 0; i < len; i ++){
+            let cur = this.state.current;
+            let showI = begin + i;
+            if(cur == showI){
+                items.push({num : showI, cur : true});
+            }else{
+                items.push({num : showI, cur : false});
+            }
+            
+        }
+        return (
+                <div className="ui-pagnation">
+                    <a className={this.state.current == 1? 'prev disable' : 'prev'} onClick={this.goPrev}></a>
+                    <span className="pagnation-cols" onClick={this.pageBtnFn}>
+                        {
+                            items.map(function(item,i){
+                                return <a key={i} onClick={self.handClick(item.num)} className={item.cur? 'num current' : 'num'}>{item.num}</a>
+                            })
+                        }
+                    </span>
+                    <a className={this.state.current == this.props.total? 'next disable' : 'next'} onClick={this.goNext}></a>
+                    {
+                        /*<div className="fl">
+                            共
+                            <span className="num-total">{total}</span>
+                            页，到第
+                            <input type="text" value={self.state.value} onChange={this.handChange} />
+                            页
+                        </div>
+                        <a onClick={this.goPage} className="page-go">确定</a>*/
+                    }
+                </div>
+            ) 
+    },
+    pageBtnFn:function(e){
+        console.log(  this.state )
+    }
+});
+
+ReactDOM.render(
+    <div>
+        <Page total="10" />
+    </div>,
+    document.getElementById('demo')
+);
+</script>
+</body>
+</html>

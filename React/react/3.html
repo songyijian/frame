@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title> 3、双向绑定1</title>
+		<script src="src/react.js"></script>
+		<script src="src/react-dom.js"></script>
+		<script src="src/browser.min.js"></script>
+	</head>
+
+	<body>
+	<body>
+	
+		<div id="div1"></div>
+
+		<div id="demo"></div>
+		<script type="text/babel">
+
+			var data={
+				values:'输入内容',
+				bootomv:'提交'
+			}
+
+			var ItemComponent = React.createClass({
+				getInitialState:function(){
+					return {mes:this.props.values}
+				},
+				render:function (){
+					return (
+						<div>
+							<h2>双向绑定1（传统方式-onChange）</h2>
+							<input type="text" value={this.state.mes} onChange={this.changeFn}/>
+							<input type="submit" value={this.props.bootomv}/>
+							<br/>
+							<p>{this.state.mes}</p>
+						</div>
+					)	
+				},
+				changeFn:function(ev){
+					this.setState({mes:ev.target.value})
+					console.log(ev)
+				}
+			});
+
+			//直接传入一个json
+			ReactDOM.render(
+				<ItemComponent {...data}/>,
+				document.getElementById('div1'),
+				function(){
+					console.log('ReactDOM,执行完毕')
+				}
+			)
+
+		</script>
+	</body>
+</html>
+
