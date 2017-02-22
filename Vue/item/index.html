@@ -1,113 +1,150 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8">
-		<title></title>
-		<style type="text/css">
-			body{ background:#CCCCCC; }
-			#item1{ width:750px; margin:0 auto; /*border: 1px solid red*/ background: #FFFFFF;padding: 1rem; }
-			ul{ margin: 0; padding: 0;}
-			li{ border-top:1px solid #ccc; padding: 0.5rem; list-style: none;}
-			li span{ cursor:pointer; border-radius:50%; display: inline-block; height:22px; width: 22px; border: 1px solid #CCCCCC; background: #CCCCCC; text-align: center; font:12px/22px "微软雅黑";}
-			.content{border: 1px solid #ccc;}
-			li input[type="text"]{ display: none;}
-			
-			.edit input[type="text"]{ display: inline-block;}
-			.edit em{display:none;}
-			.state em{ text-decoration:line-through; color: #CCCCCC; }
-		</style>
-	</head>
-	<body>
-		<div id="item1">
-			<h2>添加任务</h2>
-			<input type="" v-model="addTxt" @keyup.13="getVlue" /> <button @click="getVlue">{{btnName}}</button>
-			<p>1个任务未完成</p>
-			<h2>列表</h2>
-			<div class="content">
-				<p>还没有任何任务</p>
-				<ul>
-					<li v-for="item in list" v-bind:class="{edit:item.state,state:!item.state}">
-						<input type="checkbox" value="item.state" v-model="item.state"/>
-						<em>{{item.title}}</em>
-						<input type="text" v-model="item.title" />
-						<span>X</span>
-					</li>
-					<!--<li>
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        body {
+            background: #CCCCCC;
+        }
+        
+        #item1 {
+            width: 750px;
+            margin: 0 auto;
+            /*border: 1px solid red*/
+            background: #FFFFFF;
+            padding: 1rem;
+        }
+        
+        ul {
+            margin: 0;
+            padding: 0;
+        }
+        
+        li {
+            border-top: 1px solid #ccc;
+            padding: 0.5rem;
+            list-style: none;
+        }
+        
+        li span {
+            cursor: pointer;
+            border-radius: 50%;
+            display: inline-block;
+            height: 22px;
+            width: 22px;
+            border: 1px solid #CCCCCC;
+            background: #CCCCCC;
+            text-align: center;
+            font: 12px/22px "微软雅黑";
+        }
+        
+        .content {
+            border: 1px solid #ccc;
+        }
+        
+        li input[type="text"] {
+            display: none;
+        }
+        
+        .edit input[type="text"] {
+            display: inline-block;
+        }
+        
+        .edit em {
+            display: none;
+        }
+        
+        .state em {
+            text-decoration: line-through;
+            color: #CCCCCC;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="item1">
+        <h2>添加任务</h2>
+        <input type="" v-model="addTxt" @keyup.13="getVlue" /> <button @click="getVlue">{{btnName}}</button>
+        <p>1个任务未完成</p>
+        <h2>列表</h2>
+        <div class="content">
+            <p>还没有任何任务</p>
+            <ul>
+                <li v-for="item in list" v-bind:class="{edit:item.state,state:!item.state}">
+                    <input type="checkbox" value="item.state" v-model="item.state" />
+                    <em>{{item.title}}</em>
+                    <input type="text" v-model="item.title" />
+                    <span>X</span>
+                </li>
+                <!--<li>
 						<input type="radio" name="" id="" value=""/>
 						<em>sdsd</em>
 						<input type="text" value="sdsd" />
 						<span>X</span>
 					</li>-->
-				</ul>
-			</div>
-		</div>
-		
-		
-		<script src="../src/vue.js" type="text/javascript" charset="utf-8"></script>
-		<script type="text/javascript">
-			
-			
-			
-			new Vue({
-				el:"#item1",
-				data:{
-					btnName:"提交",
-					addTxt:"",
-					list:[
-						{
-							title:"111111",
-							state:true
-						},{
-							title:"2222",
-							state:false
-						},{
-							title:"33333333333",
-							state:true
-						}
-					]
-				},
-				methods:{
-					getVlue(ev){
-						
-//						if(this.addTxt){
-//							this.list.push({
-//								title:this.addTxt,
-//								state:false
-//							})
-//						}
-//						this.addTxt=""
-					}
-				}
-			})
-			
-			
-			
-var fn={
-	a:"aaa",
-	f1:function(){
-		console.log(this,this.a)
-	},
-	f2:function(){
-		console.log(this.a,this.a)
-	}
-}
+            </ul>
+        </div>
+    </div>
 
-var fn2={
-	a:"aaa2222",
-	f1(){
-		console.log(this,this.a)
-	},
-	f2(){
-		console.log(this.a,this.a)
-	}
-}
 
-fn.f1()
-fn2.f1()
+    <script src="../src/vue.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript">
+        new Vue({
+            el: "#item1",
+            data: {
+                btnName: "提交",
+                addTxt: "",
+                list: [{
+                    title: "111111",
+                    state: true
+                }, {
+                    title: "2222",
+                    state: false
+                }, {
+                    title: "33333333333",
+                    state: true
+                }]
+            },
+            methods: {
+                getVlue(ev) {
+                    if (this.addTxt) {
+                        this.list.push({
+                            title: this.addTxt,
+                            state: false
+                        })
+                    }
+                    this.addTxt = ""
+                }
+            }
+        });
 
-		
-		
-			
-		</script>
-	</body>
+
+
+        // var fn={
+        // 	a:"aaa",
+        // 	f1:function(){
+        // 		console.log(this,this.a)
+        // 	},
+        // 	f2:function(){
+        // 		console.log(this.a,this.a)
+        // 	}
+        // }
+
+        // var fn2={
+        // 	a:"aaa2222",
+        // 	f1(){
+        // 		console.log(this,this.a)
+        // 	},
+        // 	f2(){
+        // 		console.log(this.a,this.a)
+        // 	}
+        // }
+
+        // fn.f1()
+        // fn2.f1()
+    </script>
+</body>
+
 </html>

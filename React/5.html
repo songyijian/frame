@@ -14,14 +14,11 @@
 	</head>
 
 	<body>
-		<p>
-			订阅发布pubsub.js<br />
-		</p>
 		<div id="div1"></div>
 
 		<script type="text/babel">
 			var ItemComponent = React.createClass({
-				mixins:[React.addons.LinkedStateMixin],	 //这个插件就是一个封装好的onChange
+				mixins:[React.addons.LinkedStateMixin],	//这个插件就是一个封装好的onChange
 				getInitialState:function(){
 					return this.props;
 				},
@@ -34,11 +31,11 @@
 							<br/>
 							<p>{this.state.values}</p>
 							<ul>
-								{
-									this.state.listT.map(function(o,i){
-										return <LiList key={i} index={i} data={o}/>
-									}.bind(this))
-								}
+							{
+								this.state.listT.map(function(o,i){
+									return <LiList key={i} index={i} data={o}/>
+								}.bind(this))
+							}
 							</ul>
 						</div>
 					)	
@@ -49,8 +46,8 @@
 					alert(v)
 				},
 				componentDidMount:function(){
+					console.log(PubSub)
 					PubSub.subscribe('removeFn',function(o,n1){
-						console.log(o)
 						console.log(n1)
 
 					}.bind(this))
@@ -59,10 +56,8 @@
 
 			var LiList=React.createClass({
 				removeFn:function(ev){
-					console.log(ev.target)
-					
 					PubSub.publish("removeFn",this.props.index)
-					console.log(this.props.index)
+					//console.log(this.props.index)
 				},
 				render:function(){
 					return (

@@ -76,15 +76,6 @@
 			}
 		})
 
-		ReactDOM.render(
-			<BoxR listArr={listArr}/>,
-			document.getElementById('div1'),
-			function(){console.log('ok')}
-		)
-
-
-
-
 
 
 
@@ -98,7 +89,12 @@
 							content:"留言内容1",
 							_id:Date.now()
 						}
-					]
+					];
+		ReactDOM.render(
+			<BoxR listArr={listArr}/>,
+			document.getElementById('div1'),
+			function(){console.log('ok')}
+		)
 
 
 	</script>

@@ -14,6 +14,8 @@
 	</style>
 </head>
 <body>
+
+	
 	<div id="div1"></div>
 
 	<script type="text/babel">
@@ -46,24 +48,25 @@
 
 			}
 		});
+
 		var ListBR=React.createClass({
 			render:function(){
 				var yn=this.props.listDate.length ? "none" : "block";
 				return  (
-						<div className="col-md-8">
-				            <h2>留言回复：</h2>
-				            <h2 style={{display:yn}}>暂无留言，点击左侧添加留言！！！</h2>
-				            <ul>
-				            {
-				            	this.props.listDate.map(function(o,i){
-				            		//这里的this.props ，this要传入懂得
-				            		//<ListLR key={i} i={i} {...o} removeList={this.props.removeList}/>
-				           			return <ListLR key={i} {...o} removeList={this.props.removeList}/>
-				           		}.bind(this))
-				            }
-				           	</ul>
-				        </div>
-				        )
+					<div className="col-md-8">
+			            <h2>留言回复：</h2>
+			            <h2 style={{display:yn}}>暂无留言，点击左侧添加留言！！！</h2>
+			            <ul>
+			            {
+			            	this.props.listDate.map(function(o,i){
+			            		//这里的this.props ，this要传入懂得
+			            		//<ListLR key={i} i={i} {...o} removeList={this.props.removeList}/>
+			           			return <ListLR key={i} {...o} removeList={this.props.removeList}/>
+			           		}.bind(this))
+			            }
+			           	</ul>
+			        </div>
+				)
 			}
 		});
 
