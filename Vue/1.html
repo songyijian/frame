@@ -1,30 +1,33 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-	<meta charset="UTF-8" />
-	<title>vue</title>
+    <meta charset="UTF-8" />
+    <title>vue</title>
 </head>
+
 <body>
-	<div id="box">
-		<input type="button" name="" id="" value="log this" v-on:click="bomb"/>
-		<h2>{{a}}</h2>
-		<input type="text" name="" id="" v-model="a"  />
-	</div>
-	
-	<script src="src/vue.js" type="text/javascript" charset="utf-8"></script>
-	<script type="text/javascript">
-		new Vue({
-			el:"#box",
-			data:{
-				a:"52252"	
-			},
-			methods:{
-				bomb(){
-					//这里取到是是new vue 本身,而不是被点击的按钮
-					console.log(this)
-				}
-			}
-		})
-	</script>
+    <div id="box">
+        <h2>{{a}}</h2>
+        <input type="text" v-model="a" />
+        <input type="button" value="log this" v-on:click="bomb" />
+    </div>
+
+    <script src="src/vue.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript">
+        new Vue({
+            el: "#box",
+            data: {
+                a: "hello vue"
+            },
+            methods: {
+                bomb() {
+                    //这里取到是是new vue 本身,而不是被点击的按钮
+                    console.log(this)
+                }
+            }
+        })
+    </script>
 </body>
+
 </html>

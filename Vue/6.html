@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>表单</title>
+</head>
+
+<body>
+    <a href="https://cn.vuejs.org/v2/guide/forms.html">表单控件绑定</a>
+    <h1>表单</h1>
+    <div id="box">
+        <h3>text</h3>
+        <input v-model="values" type="text"><input type="button" @click="addFn" value="add btn">
+        <p>输入内容为：</p>
+        <ul>
+            <li v-for="(item,index) in list">{{index}}、{{item}}</li>
+        </ul>
+
+
+        <h3>textarea</h3>
+        <textarea v-model="message" placeholder="add multiple lines"></textarea>
+        <p>输入内容为：{{message}}</p>
+
+        <h3>checkbox</h3>
+        <p style="color: red">checkbox对应一个数组，选中的checkbox的value添加到数组中，数组中存在对应的value默认选中;<br>如果对应一个string的话表现为Boolean值控制 </p>
+        <input type="checkbox" value="one" v-model="onecheckbox">one<br>
+        <span>Checked names: {{ onecheckbox }}</span>
+        <br>
+        <input type="checkbox" id="jack" value="Jack" v-model="checkedNames">Jack
+        <input type="checkbox" id="john" value="John" v-model="checkedNames"><label for="john">John</label>
+        <input type="checkbox" id="mike" value="Mike" v-model="checkedNames"><label for="mike">Mike</label><br>
+        <span>Checked names: {{ checkedNames }}</span>
+
+        <h3>radio</h3>
+        <p style="color: red">radio 应该对应string 存放value值，对应默认选中状态</p>
+        <input type="radio" id="one" value="One" v-model="picked">
+        <label for="one">One</label>
+        <br>
+        <input type="radio" id="two" value="Two" v-model="picked">
+        <label for="two">Two</label>
+        <br>
+        <span>Picked: {{ picked }}</span>
+
+
+        <h3></h3>
+        <select v-model="selected">
+			<option v-for="option in options" v-bind:value="option.value">
+				{{ option.text }}
+			</option>
+		</select>
+        <span>Selected: {{ selected }}</span>
+
+    </div>
+
+    <script src="src/vue.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript">
+        new Vue({
+            el: "#box",
+            data: {
+                list: [],
+                values: "",
+                message: "",
+                onecheckbox: '',
+                checkedNames: ['John'],
+                picked: 'One',
+                options: [{
+                    text: 'One',
+                    value: 'A'
+                }, {
+                    text: 'Two',
+                    value: 'B'
+                }, {
+                    text: 'Three',
+                    value: 'C'
+                }]
+            },
+            methods: {
+                addFn() {
+                    console.log(this.values)
+                    if (this.values == ' ') return;
+                    this.list.push(this.values)
+                    this.values = ''
+                }
+            }
+        })
+    </script>
+
+
+</body>
+
+</html>

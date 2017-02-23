@@ -72,11 +72,11 @@
         <div class="content">
             <p>还没有任何任务</p>
             <ul>
-                <li v-for="item in list" v-bind:class="{edit:item.state,state:!item.state}">
+                <li v-for="(item,index) in list" v-bind:class="{state:item.state}">
                     <input type="checkbox" value="item.state" v-model="item.state" />
                     <em>{{item.title}}</em>
                     <input type="text" v-model="item.title" />
-                    <span>X</span>
+                    <span v-on:click="remov(index)">X</span>
                 </li>
                 <!--<li>
 						<input type="radio" name="" id="" value=""/>
@@ -116,6 +116,9 @@
                         })
                     }
                     this.addTxt = ""
+                },
+                remov(item) {
+                    alert(item)
                 }
             }
         });
