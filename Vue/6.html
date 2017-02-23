@@ -8,7 +8,7 @@
 
 <body>
     <a href="https://cn.vuejs.org/v2/guide/forms.html">表单控件绑定</a>
-    <h1>表单</h1>
+    <h1>表单 通过v-model="xxx"绑定数据 很好的响应当前表单的状态值</h1>
     <div id="box">
         <h3>text</h3>
         <input v-model="values" type="text"><input type="button" @click="addFn" value="add btn">
@@ -16,7 +16,6 @@
         <ul>
             <li v-for="(item,index) in list">{{index}}、{{item}}</li>
         </ul>
-
 
         <h3>textarea</h3>
         <textarea v-model="message" placeholder="add multiple lines"></textarea>
@@ -43,7 +42,8 @@
         <span>Picked: {{ picked }}</span>
 
 
-        <h3></h3>
+        <h3>select</h3>
+        <p style="color: red">select 应该对应string 存放value值，对应默认选中状态</p>
         <select v-model="selected">
 			<option v-for="option in options" v-bind:value="option.value">
 				{{ option.text }}
@@ -64,6 +64,7 @@
                 onecheckbox: '',
                 checkedNames: ['John'],
                 picked: 'One',
+                selected: 'B',
                 options: [{
                     text: 'One',
                     value: 'A'
