@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>组件</title>
+</head>
+
+<body>
+    <a href="https://cn.vuejs.org/v2/guide/components.html">组件</a>
+
+
+    <h1>组件</h1>
+    <div id="box">
+        <h3>官网：单项数据绑订，顶层改变下层</h3>
+        <button @click="indexAdd">index++</button>
+        <Biao-Qian-Name v-for="item in listDATA" v-bind:datas="item">
+        </Biao-Qian-Name>
+        <p v-text="listDATA"></p>
+    </div>
+
+
+    <script src="src/vue.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript">
+        let tems = '<li > props: {{datas.index}}-{{datas.title}} <button v-on:click="setF">+=0</button> ----- 组件自身data：{{a}} <input type="button" value="this++" v-on:click="ev1"><br></li>'
+        Vue.component("BiaoQianName", {
+            props: ['datas'],
+            template: tems,
+            data: () => { //一定要写成函数体
+                return ({
+                    a: 0,
+                    propData: this.props
+                })
+            },
+            methods: {
+                ev1(i) {
+                    this.a++;
+                },
+                setF() {
+                    this.datas.title += "0"
+                    console.log(this.propData)
+                }
+            }
+        })
+
+        new Vue({
+            el: "#box",
+            data: {
+                listDATA: [{
+                    title: "组件1",
+                    index: 1
+                }, {
+                    title: "组件2",
+                    index: 2
+                }, {
+                    title: "组件3",
+                    index: 3
+                }]
+            },
+            methods: {
+                indexAdd() {
+                    this.listDATA.forEach((item) => {
+                        item.index++;
+                    })
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

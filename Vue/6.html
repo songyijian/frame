@@ -51,6 +51,14 @@
 		</select>
         <span>Selected: {{ selected }}</span>
 
+        <h3>v-model.lazy失去焦点的时候同步数据</h3>
+        <input v-model.lazy="msg"><span>{{ msg }}</span>
+
+        <h3>v-model.number 输入值转为 Number 类型 个人觉得这才是重点type="number"</h3>
+        <input v-model.number="age" type="number"><span>{{ age }}</span>
+
+        <h3>v-model.trim 过滤用户输入的首尾空格</h3>
+        <input v-model.trim="msg"><span>{{ msg }}</span>
     </div>
 
     <script src="src/vue.js" type="text/javascript" charset="utf-8"></script>
@@ -74,7 +82,9 @@
                 }, {
                     text: 'Three',
                     value: 'C'
-                }]
+                }],
+                msg: '',
+                age: ""
             },
             methods: {
                 addFn() {

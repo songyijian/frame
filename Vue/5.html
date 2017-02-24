@@ -1,31 +1,53 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-	<meta charset="UTF-8" />
-	<title>组件</title>
+    <meta charset="UTF-8" />
+    <title>事件对象</title>
 </head>
+
 <body>
-	<h1>事件对象</h1>
-	<div id="box">1模版字符串</div>
+    <a href="https://cn.vuejs.org/v2/guide/events.html">事件处理器</a>
+    <h1>v-on：xx=“”事件对象</h1>
+    <div id="box">
+        <input type="button" value="btnc+=1 btn" v-on:click="btnc+=1"> <span>按钮被点击了：{{btnc}}次</span>
+        <h3>事件函数</h3>
+        <input type="button" value=" v-on btn" v-on:click="event1">
+        <h3>事件传参 要注意的是$event</h3>
+        <input type="button" value=" $event btn" v-on:click="event2($event,2)">
+        <h3>v-on:click.prevent= 阻止默认事件 a连接没有跳转</h3>
+        <a href="https://cn.vuejs.org/v2/guide/events.html#方法事件处理器" v-on:click.prevent="doThis">阻止了a标签的默认机制</a>
+        <h3>v-on:keyup.enter 回车响应</h3>
+        <input v-on:keyup.enter="submit">
+    </div>
 
-	
-	<script src="src/vue.js" type="text/javascript" charset="utf-8"></script>
-	<script type="text/javascript">
-		let temple = `<p><span>{{text}}</span><input type="button" @click="event1" value="字符串模版event" /></p>`
-		new Vue({
-			el:"#box",
-			data:{
-				text:"模版字符串内容"
-			},
-			methods:{
-				event1(){
-					alert(`模版字符串也可以绑定事件`)
-				}
-			},
-			template:temple
-			
-		})
 
-	</script>
+    <script src="src/vue.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript">
+        new Vue({
+            el: "#box",
+            data: {
+                btnc: 0
+            },
+
+            methods: { //这是所有函数的包装器
+                event1(event) {
+                    console.log(arguments)
+                    alert(`函数默认有event参数,和原生一样`)
+                },
+                event2(ev, n) {
+                    console.log(arguments)
+                    alert(`${ev}\n${n}`)
+                },
+                doThis() {
+                    alert("a标签被点击了！")
+                },
+                submit() {
+                    alert("回车表单")
+                }
+            }
+        })
+    </script>
 </body>
+
 </html>

@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>组件</title>
+</head>
+
+<body>
+    <a href="https://cn.vuejs.org/v2/guide/components.html">组件</a>
+
+
+    <h1>组件</h1>
+    <div id="box">
+        <h3>组件以标签形式插入， 渲染时标签将被组件内容替换掉，<br>通过属性传参，组件内通过props获取传参。<br>组件自身的data现在应该是一个函数形式data：()=>{return（｛xx：000｝）} </h3>
+        <Biao-Qian-Name v-for="item in listDATA" v-bind:datas="item">
+        </Biao-Qian-Name>
+    </div>
+    <div id="box2">
+        <br>
+        <h3>局部注册 主要看 components 属性，和全局没什么区别，值是不能被其他函数所调了</h3>
+        <local-Component :datas="d"></local-Component>
+    </div>
+
+    <script src="src/vue.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript">
+        //全局注册 组件 可以全局使用
+        Vue.component("BiaoQianName", {
+            props: ['datas'],
+            template: '<li > props:{{datas.title}} </button> ----- 组件自身data：{{a}} <input type="button" value="this+=1" v-on:click="ev1"><br></li>',
+            data: () => {
+                return ({
+                    a: 0
+                })
+            },
+            methods: {
+                ev1(i) {
+                    this.a += 1;
+                }
+            }
+        })
+
+        new Vue({
+            el: "#box",
+            data: {
+                listDATA: [{
+                    title: "组件1",
+                    index: "1"
+                }, {
+                    title: "组件2",
+                    index: "2"
+                }, {
+                    title: "组件3",
+                    index: "3"
+                }]
+            },
+            methods: {}
+        })
+
+
+
+
+        //局部注册 主要看 components 属性
+        var Child = {
+            props: ['datas'],
+            template: '<div>{{datas}}</div>'
+        }
+        new Vue({
+            el: "#box2",
+            data: {
+                d: "局部注册,内容也是通过属性传入，props获取"
+            },
+            components: {
+                "localComponent": Child
+            },
+            methods: {}
+        })
+    </script>
+
+</body>
+
+</html>
