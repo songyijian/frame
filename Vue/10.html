@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>过滤器</title>
+</head>
+
+<body>
+
+
+    <h1>过滤器 </h1>
+    <div id="box">
+        <h3>过滤器: 数据 | 过滤方法 。filters 内对应的函数会接受一个 参数 === 方法前面的数据 </h3>
+        <p>
+            金额：{{money | m}} 比重：{{scale | b}}
+
+        </p>
+    </div>
+
+
+    <script src="src/vue.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript">
+        new Vue({
+            el: "#box",
+            data: {
+                money: 200,
+                scale: 0.6
+            },
+            methods: {
+                indexAdd() {
+                    this.listDATA.forEach((item) => {
+                        item.index++;
+                    })
+                }
+            },
+            filters: {
+                m(value) {
+                    return value + '$'
+                },
+                b(value) {
+                    return (value * 100) + '%'
+                }
+            }
+
+        })
+    </script>
+
+</body>
+
+</html>
