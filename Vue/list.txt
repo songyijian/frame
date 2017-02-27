@@ -3,18 +3,17 @@
 3、vue指令
 4、模版
 5、事件对象
-6、表单
-7、组件 
+6、表单 v-model
+7、组件 Vue.component
 8、props 单项数据流
 9、props 数据验证
-
 10、过滤器  filters
 11、计算属性（处理原数据，计算出一个实际上不存在的属性）computed
 12、设置计算属性
 13、观察属性watch 
 14、样式：class
 15、样式：style
-
-16、条件渲染
-
+16、条件渲染 v-if-else
+17、v-show 显示=== display：none；
+18、列表渲染 v-for
 xiaoma :9

@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <head>
+        <meta charset="UTF-8" />
+        <title>17. 列表渲染 v-for</title>
+    </head>
+
+    <body>
+        <h1>列表渲染 v-for </h1>
+        <div id="box">
+            <h3> v-for="(item ,index) in list" 渲染数组 这里的index 有点特别</h3>
+            <p v-for="(item ,index) in list">{{index}}、{{item}}</p>
+
+            <h3> v-for="(value,key,index) in obj" 渲染json对象</h3>
+            <p v-for="(value,key,index) in obj">{{index}}、{{key}}-{{value}}</p>
+
+            <h3> v-for="item in 5" 单纯循环5次</h3>
+            <p v-for="item in 5">{{item}}</p>
+        </div>
+
+
+        <script src=" src/vue.js " type="text/javascript " charset="utf-8 "></script>
+        <script type="text/javascript ">
+            new Vue({
+                el: "#box ",
+                data: {
+                    list: ['javascript', 'css', 'html'],
+                    obj: {
+                        name: "ssss",
+                        age: 123,
+                        sex: "男"
+                    }
+
+                },
+                methods: {
+
+                },
+
+            })
+        </script>
+
+    </body>
+
+</html>
+</script>
+
+</body>
+
+</html>
