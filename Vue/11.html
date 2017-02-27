@@ -2,52 +2,50 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <title>计算属性</title>
-</head>
 
-<body>
+    <head>
+        <meta charset="UTF-8" />
+        <title>计算属性</title>
+    </head>
+
+    <body>
+        <h1>计算属性 computed </h1>
+        <div id="box">
+            <h3> computed ：处理原数据，计算出一个实际上不存在的属性 有点像filters，但是可以当作data属性来使用</h3>
+            <input type="button" @click="addm" value="+=100">
+            <p>
+                金额 <br> 中国：{{money}}¥
+                <br> USA：{{usa}}$
+                <br> japan：{{japan}}日元
+            </p>
+        </div>
 
 
-    <h1>计算属性 computed </h1>
-    <div id="box">
-        <h3> computed ：处理原数据，计算出一个实际上不存在的属性 有点像filters，但是可以当作data属性来使用</h3>
-        <input type="button" @click="addm" value="+=100">
-        <p>
-            人民币金额：{{money}}¥
-            <br> USA：{{usa}}$
-            <br> 日元 ：{{japan}}
-        </p>
-    </div>
-
-
-    <script src="src/vue.js" type="text/javascript" charset="utf-8"></script>
-    <script type="text/javascript">
-        new Vue({
-            el: "#box",
-            data: {
-                money: 200
-            },
-            methods: {
-                addm() {
-                    this.money += 100;
-                }
-            },
-            filters: {
-
-            },
-            computed: {
-                usa() {
-                    return this.money * 0.65
+        <script src="src/vue.js" type="text/javascript" charset="utf-8"></script>
+        <script type="text/javascript">
+            new Vue({
+                el: "#box",
+                data: {
+                    money: 200
                 },
-                japan() {
-                    return this.money * 100
+                methods: {
+                    addm() {
+                        this.money += 100;
+                    }
+                },
+                filters: {},
+                computed: {
+                    usa() {
+                        return this.money * (1 / 6.5);
+                    },
+                    japan() {
+                        return this.money * 16.75
+                    }
                 }
-            }
 
-        })
-    </script>
+            })
+        </script>
 
-</body>
+    </body>
 
 </html>

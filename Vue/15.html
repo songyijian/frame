@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>15、样式：style</title>
+    <style>
+        .c1 {
+            border: 1px solid red
+        }
+        
+        .bg {
+            background: yellow;
+        }
+        
+        .fonts {
+            font:
+        }
+    </style>
+</head>
+
+<body>
+    <a href="https://cn.vuejs.org/v2/guide/class-and-style.html#绑定内联样式">vue：绑定内联样式</a>
+    <h1>样式：v-bind:style </h1>
+    <div id="box">
+        <h3> v-bind:style= 类似原生js的驼峰写法</h3>
+        <p class="c1" v-bind:style="{ color: activeColor, font: fonts }">v-bind:style="{直接绑定一个json格式}"</p>
+        <p v-bind:style="styleObject">直接绑定一个样式json</p>
+        <p v-bind:style="[styleObject,styleObject2]">数组语法</p>
+    </div>
+
+
+    <script src=" src/vue.js " type="text/javascript " charset="utf-8 "></script>
+    <script type="text/javascript ">
+        new Vue({
+            el: "#box ",
+            data: {
+                activeColor: 'red',
+                fonts: 'bold 20px/55px "微软雅黑"',
+                styleObject: {
+                    color: 'red',
+                    fontSize: '20px'
+                },
+                styleObject2: {
+                    background: 'yellow'
+                }
+            },
+            methods: {
+                addBg() {}
+            },
+            computed: {
+
+            }
+
+        })
+    </script>
+
+</body>
+
+</html>

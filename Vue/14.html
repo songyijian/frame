@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>14.class绑定</title>
+    <style>
+        .c1 {
+            border: 1px solid red
+        }
+        
+        .bg {
+            background: yellow;
+        }
+        
+        .fonts {
+            font: bold 20px/55px "微软雅黑"
+        }
+    </style>
+</head>
+
+<body>
+    <a href="https://cn.vuejs.org/v2/guide/class-and-style.html#绑定-HTML-Class">vue：绑定-HTML-Class</a>
+    <h1>样式：class </h1>
+    <div id="box">
+        <h3> v-bind:class= 并不影响本身的class </h3>
+        <input type="button" @click="addBg" value=".Bg">
+        <p class="c1" v-bind:class="classData">v-bind:class="classData"直接绑定一个json格式</p>
+        <p class="c1" v-bind:class="{fonts:true,bg:classData.bg}">v-bind:class="{fonts:true,bg:classData.bg}"</p>
+        <p class="c1" v-bind:class="[fs,{bg:classData.bg}]"> v-bind:class="[fs,bs]"</p>
+
+    </div>
+
+
+    <script src=" src/vue.js " type="text/javascript " charset="utf-8 "></script>
+    <script type="text/javascript ">
+        new Vue({
+            el: "#box ",
+            data: {
+                classData: {
+                    fonts: true,
+                    bg: false
+                },
+
+                fs: 'fonts',
+                bs: 'bg'
+
+            },
+            methods: {
+                addBg() {
+
+                    this.classData.bg = this.classData.bg ? false : true;
+                }
+            },
+            computed: {
+
+            }
+
+        })
+    </script>
+
+</body>
+
+</html>

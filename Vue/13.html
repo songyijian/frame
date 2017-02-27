@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>12.watch观察属性</title>
+</head>
+
+<body>
+
+
+    <h1> watch 观察->属性 , 当属性发生变化的时候执行的函数 </h1>
+    <div id="box">
+        <h3> 其实计算属性computed就够用了，他也算是一个解决方案， 函数名为要观察的属性，接收新老值。当该值发生变化的时候函数被执行</h3>
+        <input type="button" @click="addm" value="+=100">
+        <p>
+            金额 <br> 中国：{{money}}¥
+            <br> USA：{{usa}}$
+            <br> japan：{{japan}}日元
+        </p>
+    </div>
+
+
+    <script src="src/vue.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript">
+        new Vue({
+            el: "#box",
+            data: {
+                money: 200,
+                usa: 0,
+                japan: 0
+            },
+            methods: {
+                addm() {
+                    this.money += 100;
+                }
+            },
+            filters: {},
+            //观察->属性
+            watch: {
+                //被观察的属性
+                money(val, oldVal) {
+                    //接收两个参数新值和老值 val, oldVal
+                    console.log(val, oldVal);
+                    //第一次并不会被执行，只有被修改时才会被调用
+                    this.usa = this.money * (1 / 6.5);
+                    this.japan = this.money * 16.75
+                }
+            }
+            // computed: {
+            //     usa() {
+            //         return this.money * 0.65
+            //     },
+            //     japan() {
+            //         return this.money * 100
+            //     }
+            // }
+
+        })
+    </script>
+
+</body>
+
+</html>
