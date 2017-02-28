@@ -12,8 +12,13 @@
 12、设置计算属性
 13、观察属性watch 
 14、样式：class
-15、样式：style
+15、样式：v-bind:style
 16、条件渲染 v-if-else
 17、v-show 显示=== display：none；
 18、列表渲染 v-for
+
+
+19、组件-表格 is
+
+
 xiaoma :9

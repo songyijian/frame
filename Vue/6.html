@@ -11,7 +11,7 @@
     <h1>表单 通过v-model="xxx"绑定数据 很好的响应当前表单的状态值</h1>
     <div id="box">
         <h3>text</h3>
-        <input v-model="values" type="text"><input type="button" @click="addFn" value="add btn">
+        <input v-model="values" type="text" placeholder="输入内容"><input type="button" @click="addFn" value="add btn">
         <p>输入内容为：</p>
         <ul>
             <li v-for="(item,index) in list">{{index}}、{{item}}</li>
@@ -24,7 +24,7 @@
         <h3>checkbox</h3>
         <p style="color: red">checkbox对应一个数组，选中的checkbox的value添加到数组中，数组中存在对应的value默认选中;<br>如果对应一个string的话表现为Boolean值控制 </p>
         <input type="checkbox" value="one" v-model="onecheckbox">one<br>
-        <span>Checked names: {{ onecheckbox }}</span>
+        <span>Checked one: {{ onecheckbox }}</span>
         <br>
         <input type="checkbox" id="jack" value="Jack" v-model="checkedNames">Jack
         <input type="checkbox" id="john" value="John" v-model="checkedNames"><label for="john">John</label>
