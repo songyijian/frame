@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <head>
+        <meta charset="UTF-8" />
+        <title>20、自定义事件</title>
+    </head>
+
+    <body>
+        <h1>组件-表格 is </h1>
+        <div id="box">
+            <h3>直接写成trs 是不能被正确渲染在table表格内的 这里就用到了is属性</h3>
+            <div>
+                <p>{{getData}}</p>
+                <ul>
+                    <lis v-for="item in list" :oitem="item" v-on:getFn='getDcall'></lis>
+                </ul>
+            </div>
+        </div>
+
+        <script src=" src/vue.js " type="text/javascript " charset="utf-8 "></script>
+        <script type="text/javascript ">
+            Vue.component("lis", {
+                props: ['oitem'],
+                template: `<li v-on:click="getFn">{{oitem}}</li>`,
+                data() {
+                    return ({})
+                },
+                methods: {
+                    getFn(val) {
+                        console.log(val);
+                        this.$emit('getDcall')
+                    }
+                }
+            })
+            new Vue({
+                el: "#box ",
+                data: {
+                    list: ['javascript', 'css', 'html', 'vue', 'css3', 'react', 'ejs', 'node'],
+                    getData: null
+                },
+                methods: {
+                    getDcall() {
+                        console.log('------')
+                    }
+                }
+            })
+        </script>
+
+    </body>
+
+</html>
+</script>
+
+</body>
+
+</html>
