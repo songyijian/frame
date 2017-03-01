@@ -5,19 +5,20 @@
 
     <head>
         <meta charset="UTF-8" />
-        <title>计算属性</title>
+        <title>11.计算属性</title>
     </head>
 
     <body>
         <h1>计算属性 computed </h1>
         <div id="box">
-            <h3> computed ：处理原数据，计算出一个实际上不存在的属性 有点像filters，但是可以当作data属性来使用</h3>
+            <h3> computed ：处理原数据，计算出一个实际不存在的属性 ，可以当作data属性来使用</h3>
             <input type="button" @click="addm" value="+=100">
             <p>
                 金额 <br> 中国：{{money}}¥
                 <br> USA：{{usa}}$
                 <br> japan：{{japan}}日元
             </p>
+            <p>{{ou}}</p>
         </div>
 
 
@@ -26,7 +27,8 @@
             new Vue({
                 el: "#box",
                 data: {
-                    money: 200
+                    money: 200,
+                    ou: 1
                 },
                 methods: {
                     addm() {
@@ -40,7 +42,12 @@
                     },
                     japan() {
                         return this.money * 16.75
-                    }
+                    },
+                    // 可能是2.0不允许函数名覆盖已有的属性
+                    // ou() { 
+                    //     return this.money + this.ou;
+                    // }
+
                 }
 
             })

@@ -3,60 +3,72 @@
 
 <head>
     <meta charset="UTF-8" />
-    <title>组件</title>
+    <title>9. props 参数验证</title>
 </head>
 
 <body>
     <a href="https://cn.vuejs.org/v2/guide/components.html#Prop-验证">组件</a>
 
-    <h1>组件</h1>
+    <h1> props 参数验证</h1>
     <div id="box">
-        <h3>官网：单项数据绑订，顶层改变下层</h3>
-        <Biao-Qian-Name v-bind:ps="s" v-bind:pn="n" v-bind:po="o">
-        </Biao-Qian-Name>
+        <h3>json格式：类型type，是否必传required，默认：default，函数：validator</h3>
+        <p>{{setA}}</p>
+        <input type="number" v-model:value="a">
+        <Biao-Qian-Name :n='n' :a="a" :c="c" :seta="setA"></Biao-Qian-Name>
     </div>
 
 
-    <script src="src/vue.js" type="text/javascript" charset="utf-8"></script>
-    <script type="text/javascript">
-        let tems = '<li ></li>'
+    <script src=" src/vue.js " type="text/javascript " charset="utf-8 "></script>
+    <script type="text/javascript ">
         Vue.component("BiaoQianName", {
             props: {
-                ps: String,
-                pn: Number,
-                po: {
-                    typeof: Object,
-                }
+                a: {
+                    type: Number, //数据类型
+                    required: true, //必填
+                    validator(val) { //该范围内会报错
+                        return val > 10 && val < 120
+                    }
+                },
+                x: {
+                    type: String,
+                    default: 'xiao' // 默认 (不传入的时候)
+                },
+                n: {
+                    type: [Number, String], //复合数据类型
+                    required: true //必填
+                },
+                c: {
+                    type: Object
+                },
+                seta: {}
             },
-            template: tems,
-            data: () => { //一定要写成函数体
+            template: `<h3><hr/>
+                            <p>Full.Name : {{x}} _ {{n}}</p>
+                            <p>age:{{a}}</p>
+                            <p>{{seta}}</p>
+                            <pre>{{c}}<pre>
+                        </h3>`,
+            data() {
                 return ({})
             },
-            methods: {
-                ev1(i) {
-                    this.a++;
-                },
-                setF() {
-
-                }
-            }
+            methods: {}
         })
 
         new Vue({
-            el: "#box",
+            el: "#box ",
             data: {
-                s: "string00",
-                n: "sdsdsd", //这里穿错后台就输出错误信息，但是感觉毛用没有
-                o: {
-                    a: "aaaaa",
-                    b: "dfdfdffd"
+                n: "name",
+                a: 20,
+                c: {
+                    o: 123,
+                    oo: "bbb"
                 }
             },
-            methods: {
-                indexAdd() {
-                    this.listDATA.forEach((item) => {
-                        item.index++;
-                    })
+            methods: {},
+            computed: {
+                //相当于在data内添加了一 setA 属性
+                setA() {
+                    return this.n + "_" + this.a;
                 }
             }
         })

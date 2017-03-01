@@ -3,29 +3,29 @@
 
 <head>
     <meta charset="UTF-8" />
-    <title>10 过滤器</title>
+    <title>10 过滤器 filters</title>
 </head>
 
 <body>
-
-
     <h1>过滤器 </h1>
     <div id="box">
-        <h3>过滤器: 数据 | 过滤方法 。filters 内对应的函数会接受一个 参数 === 方法前面的数据 </h3>
-        <p>
-            金额：{{money | m}} 比重：{{scale | b}}
-
-        </p>
+        <h3> 数据 | 过滤方法 ; 局部=filters 全局=Vue.filter (参数===数据)=>{ } </h3>
+        <h4>
+            金额: <input type="number" v-model:value="money">￥ = {{money | usaF}} = {{money | oF}}
+        </h4>
     </div>
 
 
-    <script src="src/vue.js" type="text/javascript" charset="utf-8"></script>
-    <script type="text/javascript">
+    <script src=" src/vue.js " type="text/javascript " charset="utf-8 "></script>
+    <script type="text/javascript ">
+        Vue.filter("usaF", (val) => { //全局
+            return val * (1 / 6.5) + "$";
+        })
+
         new Vue({
-            el: "#box",
+            el: "#box ",
             data: {
                 money: 200,
-                scale: 0.6
             },
             methods: {
                 indexAdd() {
@@ -34,12 +34,9 @@
                     })
                 }
             },
-            filters: {
-                m(value) {
-                    return value + '$'
-                },
-                b(value) {
-                    return (value * 100) + '%'
+            filters: { //局部
+                oF(value) {
+                    return value * 10 + '€'
                 }
             }
 
