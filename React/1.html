@@ -1,82 +1,27 @@
 <!DOCTYPE html>
 <html lang="zh-cn">
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title> 1、基础渲染</title>
-		<script src="src/react.js"></script>
-		<script src="src/react-dom.js"></script>
-		<script src="src/browser.min.js"></script>
-	</head>
 
-	<body>
-	<body>
-	
-		<div id="div1"></div>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title> 1、基础渲染</title>
+    <script src="src/react.js"></script>
+    <script src="src/react-dom.js"></script>
+    <script src="src/browser.min.js"></script>
+</head>
 
-		<div id="demo"></div>
-		<script type="text/babel">
+<body>
+    <div id="div1"></div>
+    <div id="demo"></div>
+    <script type="text/babel">
+        // 1================= /*//渲染 ReactDOM.render(
+        <span>你好：react </span>,document.getElementById('div1') )*/ //2 基础款================== var ItemComponent = React.createClass({ render:function (){ return (
+        <span>你好：react </span> ) } }); //渲染 ReactDOM.render(
+        <ItemComponent/>, document.getElementById('div1'), function(){ console.log('ReactDOM,执行完毕') } ) //3 完整款================== /*//创建元素，首字母大写 你懂的 var ItemComponent = React.createClass({ getInitialState:function(){ //渲染前 ，一定要返回一个元素 alert(1) return null; }, render:function
+        (){ return (
+        <span>你好：react </span> ) }, componentWillMount:function(){ //节点渲染后，未插入 alert(2) }, componentDidMount:function(){ //插入后 alert(3) } }); //渲染 ReactDOM.render(
+        <ItemComponent/>, document.getElementById('div1'), function(){ console.log('ReactDOM,执行完毕') } )*/
+    </script>
 
-			// 1=================
-			/*//渲染
-			ReactDOM.render(
-				<span>你好：react </span>,document.getElementById('div1')
-			)*/
-			
+</body>
 
-			//2 基础款==================
-			var ItemComponent = React.createClass({
-				render:function (){
-					return (
-						<span>你好：react </span>
-					)	
-				}
-			});
-
-			//渲染
-			ReactDOM.render(
-				<ItemComponent/>,
-				document.getElementById('div1'),
-				function(){
-					console.log('ReactDOM,执行完毕')
-				}
-			)
-
-
-
-
-			//3 完整款==================
-
-			/*//创建元素，首字母大写 你懂的
-			var ItemComponent = React.createClass({
-				getInitialState:function(){
-					//渲染前 ，一定要返回一个元素
-					alert(1)
-					return null;
-				},
-				render:function (){
-					return (
-						<span>你好：react </span>
-					)	
-				},
-				componentWillMount:function(){
-					//节点渲染后，未插入
-					alert(2)
-				},
-				componentDidMount:function(){
-					//插入后
-					alert(3)
-				}
-			});
-
-			//渲染
-			ReactDOM.render(
-				<ItemComponent/>,
-				document.getElementById('div1'),
-				function(){
-					console.log('ReactDOM,执行完毕')
-				}
-			)*/
-		</script>
-	</body>
 </html>
-
