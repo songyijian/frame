@@ -9,14 +9,15 @@
 <body>
 
 
-    <h1> watch 观察->属性 , 当属性发生变化的时候执行的函数 </h1>
+    <h1> watch 观察->属性,监听（data，props）变化。发生变化被调用 </h1>
     <div id="box">
-        <h3> 其实计算属性computed就够用了，他也算是一个解决方案， 函数名为要观察的属性，接收新老值。当该值发生变化的时候函数被执行
+        <h3> 观察的属性，接受两个参数( 新,老值) deep深度观察（对象属性发生变化依然会被检测到）
 
             <pre> handler(val, oldval) {
                         console.log(val, oldval)
                     },
-                    deep: true</pre>
+                    deep: true
+            </pre>
         </h3>
 
         <input type="button" @click="addm" value="+=100">
@@ -53,29 +54,28 @@
                     this.mr.name += '0'
                 }
             },
-            filters: {},
             //观察->属性
             watch: {
-                vs(val, oldVal) {
-                    console.log(val, oldVal);
-                },
-                //被观察的属性
-                money(val, oldVal) {
-                    //接收两个参数新值和老值 val, oldVal
-                    console.log(val, oldVal);
-                    //第一次并不会被执行，只有被修改时才会被调用
-                    this.usa = this.money * (1 / 6.5);
-                    this.japan = this.money * 16.75
-                },
                 mr: {
                     handler(val, oldval) {
                         console.log(val, oldval)
                     },
                     deep: true
-                }
+                },
+                vs(val, oldVal) {
+                    console.log(val, oldVal);
+                },
+
+                money(val, oldVal) { //被观察的属性
+
+                    //接收两个参数新值和老值 val, oldVal
+                    console.log(val, oldVal);
+
+                    //第一次并不会被执行，只有被修改时才会被调用
+                    this.usa = this.money * (1 / 6.5);
+                    this.japan = this.money * 16.75
+                },
             }
-
-
         })
     </script>
 

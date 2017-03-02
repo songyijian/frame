@@ -2,53 +2,46 @@
 <html lang="en">
 
 <head>
+    <meta charset="UTF-8" />
+    <title>16、条件渲染</title>
+</head>
 
-    <head>
-        <meta charset="UTF-8" />
-        <title>16、条件渲染</title>
-    </head>
-
-    <body>
-        <h1>条件渲染：<br>v-if<br> v-else-if<br> v-else </h1>
-        <div id="box">
-            <h3> computed ：处理原数据，计算出一个实际上不存在的属性 有点像filters，但是可以当作data属性来使用</h3>
-            0~100 ：<input type="number" v-model="fs">
-            <p v-if="fs == ''">请输入你的分数</p>
-            <p v-else-if="fs<60">您的分数为:{{fs}}。还没有及格奥~</p>
-            <p v-else>您的分数为:{{fs}}。考的不错！</p>
-        </div>
+<body>
+    <h1>条件渲染：<br>v-if<br> v-else-if<br> v-else </h1>
+    <div id="box">
+        <h3> computed ：处理原数据，计算出一个实际上不存在的属性 有点像filters，但是可以当作data属性来使用</h3>
+        0~100 ：<input type="number" v-model="fs">
+        <p v-if="fs == ''">请输入你的分数</p>
+        <p v-else-if="fs<60">您的分数为:{{fs}}。还没有及格奥~</p>
+        <p v-else>您的分数为:{{fs}}。考的不错！</p>
+    </div>
 
 
-        <script src=" src/vue.js " type="text/javascript " charset="utf-8 "></script>
-        <script type="text/javascript ">
-            new Vue({
-                el: "#box ",
-                data: {
-                    fs: null
-                },
-                methods: {},
-                filters: {},
-                watch: {
-                    fs(value) {
-                        let v = value;
-                        if (v > 100) {
-                            v = 100
-                        }
-                        if (v < 0) {
-                            v = 0
-                        }
-                        this.fs = v;
+    <script src=" src/vue.js " type="text/javascript " charset="utf-8 "></script>
+    <script type="text/javascript ">
+        new Vue({
+            el: "#box ",
+            data: {
+                fs: null
+            },
+            methods: {},
+            filters: {},
+            watch: {
+                fs(value) {
+                    let v = value;
+                    if (v > 100) {
+                        v = 100
                     }
-                },
-                computed: {}
+                    if (v < 0) {
+                        v = 0
+                    }
+                    this.fs = v;
+                }
+            },
+            computed: {}
 
-            })
-        </script>
-
-    </body>
-
-</html>
-</script>
+        })
+    </script>
 
 </body>
 

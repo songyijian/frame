@@ -2,41 +2,34 @@
 <html lang="en">
 
 <head>
+    <meta charset="UTF-8" />
+    <title>17.显示 v-show</title>
+</head>
 
-    <head>
-        <meta charset="UTF-8" />
-        <title>17.显示 v-show</title>
-    </head>
-
-    <body>
-        <h1>显示 v-show </h1>
-        <div id="box">
-            <h3> 和其他的样式控制不同的是，dom会被写入但是 display：none</h3>
-            <input type="button" @click="showfn" value="toggle show">
-            <p v-show="showd">请输入你的分数</p>
-        </div>
+<body>
+    <h1>显示 v-show </h1>
+    <div id="box">
+        <h3> 和其他的样式控制不同的是，dom会被写入但是 display：none</h3>
+        <input type="button" @click="showfn" value="toggle show">
+        <p v-show="showd">请输入你的分数</p>
+    </div>
 
 
-        <script src=" src/vue.js " type="text/javascript " charset="utf-8 "></script>
-        <script type="text/javascript ">
-            new Vue({
-                el: "#box ",
-                data: {
-                    showd: false
-                },
-                methods: {
-                    showfn() {
-                        this.showd = this.showd ? false : true;
-                    }
-                },
+    <script src=" src/vue.js " type="text/javascript " charset="utf-8 "></script>
+    <script type="text/javascript ">
+        new Vue({
+            el: "#box ",
+            data: {
+                showd: false
+            },
+            methods: {
+                showfn() {
+                    this.showd = this.showd ? false : true;
+                }
+            },
 
-            })
-        </script>
-
-    </body>
-
-</html>
-</script>
+        })
+    </script>
 
 </body>
 

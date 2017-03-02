@@ -8,12 +8,12 @@
 6、表单 v-model
 7、组件 Vue.component
 
-8、props 单项数据流
-9、props 数据验证
+8、props[] 单项数据流
+9、props{} 数据验证
 10、过滤器  局部=filters 全局=Vue.filter / 数据|过滤方法
-11、计算属性 computed（处理原数据，计算出一个实际上不存在的属性）
-12、设置计算 set，get
-13、观察属性watch 
+11、计算 computed（处理原数据，计算出一个实际上不存在的属性）
+12、计算 set，get
+13、观察  watch 
 
 14、样式：class
 15、样式：v-bind:style
@@ -23,7 +23,12 @@
 18、列表渲染 v-for
 
 19、组件-表格 is
-20、自定义事件
+20、自定义事件 $emit()
+21、组件案例+ $emit()
 
 
-xiaoma :9
+
+=====================
+
+item -> 任务列表
+item -> 组件交互（子，兄弟）二级联动

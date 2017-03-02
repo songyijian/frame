@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+
+
+
+<head>
+    <meta charset="UTF-8" />
+    <title>21、自定义事件</title>
+    <script src="./vue.min.js">
+    </script>
+</head>
+
+<body>
+    <h1>自定义事件 $emit()</h1>
+    <div id="box">
+        <h3></h3>
+        <div>
+            <p>{{getData}}</p>
+            <ul>
+                <lis v-for="item in list" :oitem="item"></lis>
+            </ul>
+        </div>
+    </div>
+
+    <script src=" src/vue.js " type="text/javascript " charset="utf-8 "></script>
+    <script type="text/javascript ">
+        Vue.component("lis", {
+            props: ['oitem'],
+            template: `<li v-on:click="getFn(oitem)">{{oitem}}</li>`,
+            data() {
+                return ({})
+            },
+            methods: {
+                getFn(val) {
+                    this.$root.$emit('change', val);
+                }
+            }
+        })
+        new Vue({
+            el: "#box ",
+            data: {
+                list: ['javascript', 'css', 'html', 'vue', 'css3', 'react', 'ejs', 'node'],
+                getData: null
+            },
+            created: function() {
+                this.$on("change", function(val) {
+                    this.getData = val;
+                    //alert(val)
+                })
+            },
+            methods: {
+                // getDcall(n) {
+                //     this.getData = n
+                //     console.log('------')
+                // }
+            }
+        })
+    </script>
+</body>
+
+</html>

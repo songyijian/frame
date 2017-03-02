@@ -2,64 +2,59 @@
 <html lang="en">
 
 <head>
+    <meta charset="UTF-8" />
+    <title>19.组件-表格（行）</title>
 
-    <head>
-        <meta charset="UTF-8" />
-        <title>19.组件-表格（行）</title>
+    <style>
+        .cc {
+            background: #ccc;
+        }
+    </style>
+</head>
 
-        <style>
-            .cc {
-                background: #ccc;
-            }
-        </style>
-    </head>
+<body>
+    <h1>组件-表格 is </h1>
+    <div id="box">
+        <h3>直接写成trs 是不能被正确渲染在table表格内的 这里就用到了is属性</h3>
+        <table border="1">
+            <tr>
+                <td>序号</td>
+                <td>title</td>
+            </tr>
+            <tr is="trs" v-for="(item,index) in list" v-bind:index="index" v-bind:item="item"></tr>
+            <!--<trs v-for="(item,index) in list" v-bind:index="index" v-bind:item="item"></trs>-->
+        </table>
 
-    <body>
-        <h1>组件-表格 is </h1>
-        <div id="box">
-            <h3>直接写成trs 是不能被正确渲染在table表格内的 这里就用到了is属性</h3>
-            <table border="1">
-                <tr>
-                    <td>序号</td>
-                    <td>title</td>
-                </tr>
-                <tr is="trs" v-for="(item,index) in list" v-bind:index="index" v-bind:item="item"></tr>
-                <!--<trs v-for="(item,index) in list" v-bind:index="index" v-bind:item="item"></trs>-->
-            </table>
-
-        </div>
+    </div>
 
 
-        <script src=" src/vue.js " type="text/javascript " charset="utf-8 "></script>
-        <script type="text/javascript ">
-            Vue.component("trs", {
-                props: ['index', 'item'],
-                template: ` <tr v-bind:class={cc:index%2?false:true} >
+    <script src=" src/vue.js " type="text/javascript " charset="utf-8 "></script>
+    <script type="text/javascript ">
+        Vue.component("trs", {
+            props: ['index', 'item'],
+            template: ` <tr v-bind:class={cc:index%2?false:true} >
                                 <td>{{index}}</td>
                                 <td>{{item}}</td>
                             </tr>`,
-                data() {
-                    return ({
+            data() {
+                return ({
 
-                    })
-                }
+                })
+            }
 
 
-            })
-            new Vue({
-                el: "#box ",
-                data: {
-                    list: ['javascript', 'css', 'html', 'vue', 'css3', 'react', 'ejs', 'node'],
-                },
-                methods: {}
+        })
+        new Vue({
+            el: "#box ",
+            data: {
+                list: ['javascript', 'css', 'html', 'vue', 'css3', 'react', 'ejs', 'node'],
+            },
+            methods: {}
 
-            })
-        </script>
+        })
+    </script>
 
-    </body>
 
-</html>
-</script>
 
 </body>
 

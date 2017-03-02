@@ -2,58 +2,53 @@
 <html lang="en">
 
 <head>
+    <meta charset="UTF-8" />
+    <title>12、计算属性 set get </title>
+</head>
 
-    <head>
-        <meta charset="UTF-8" />
-        <title>计算属性</title>
-    </head>
+<body>
+    <h1> computed _ set() get()</h1>
+    <div id="box">
+        <h3>针对computed的 set 和get 的监听，xx{set(val){},get(){}}</h3>
 
-    <body>
-        <h1>计算属性 computed </h1>
-        <div id="box">
-            <h3> computed ：函数体处理原数据，计算出一个实际上不存在的属性 有点像filters，但是可以当作data属性来使用</h3>
-
-            <h3> computed 既然作为属性用，应该有set 和get ，所以也可以写成一个json对象</h3>
-
-            <input type="button" @click="setUSA" value="计算属性USA=300$">
-            <p>
-                金额 <br> 中国：{{money}}¥
-                <br> USA：{{usa}}$
-            </p>
-        </div>
+        <input type="button" @click="setUSA" value="计算属性USA=300$">
+        <p>
+            金额 <br> 中国：{{money}}¥
+            <br> USA：{{usa}}$
+        </p>
+    </div>
 
 
-        <script src="src/vue.js" type="text/javascript" charset="utf-8"></script>
-        <script type="text/javascript">
-            new Vue({
-                el: "#box",
-                data: {
-                    money: 200,
-                    huilv: 0.65
-                },
-                methods: {
-                    setUSA() {
-                        this.usa = 300;
-                    }
-                },
-                filters: {},
-                computed: {
-                    usa: {
-                        //json 两个函数体属性，get和set进行监听调用
-                        get() {
-                            return this.money * (1 / 6.5);
-                        },
-                        set(value) {
-                            //接受设置值
-                            this.money = value * 6.5;
-                            console.log(value, this.money)
-                        }
+    <script src="src/vue.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript">
+        new Vue({
+            el: "#box",
+            data: {
+                money: 200,
+                huilv: 0.65
+            },
+            methods: {
+                setUSA() {
+                    this.usa = 300;
+                }
+            },
+            filters: {},
+            computed: {
+                usa: { //get和set进行监听调用
+                    get() {
+                        console.log("usa 属性被调用")
+                        return this.money * (1 / 6.5);
+                    },
+                    set(value) {
+                        this.money = value * 6.5;
+                        console.log(value, this.money)
                     }
                 }
+            }
 
-            })
-        </script>
+        })
+    </script>
 
-    </body>
+</body>
 
 </html>

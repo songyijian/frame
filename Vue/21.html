@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>21、组件通讯</title>
+    <style>
+        #box>div {
+            border: 3px solid red;
+            width: 300px;
+        }
+        
+        h4 {
+            margin: 0;
+            background-color: #ccc;
+            height: 40px;
+            text-align: center;
+            line-height: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>组件通讯 $emit() </h1>
+    <div id="box">
+        <h3></h3>
+        <!--<div>
+            <h4>{{getData}}</h4>
+            <ul>
+                <lis v-for="item in list" :oitem="item" v-on:getfnf='getcall'></lis>
+            </ul>
+        </div>-->
+
+        <div>
+            <menus :listdata="list"></menus>
+        </div>
+
+        <div>
+            <menus :listdata="list2"></menus>
+        </div>
+    </div>
+
+    <script src=" src/vue.js " type="text/javascript " charset="utf-8 "></script>
+    <script>
+        Vue.component('menus', {
+            props: ['listdata'],
+            template: `<div>
+                            <h4>{{getData}}</h4>
+                            <ul>
+                                 <lis v-for="item in listdata" :oitem="item" v-on:getfnf='getcall'></lis>
+                            </ul>
+                        <div>`,
+            data() {
+                return ({
+                    getData: null
+                });
+            },
+            methods: {
+                getcall(n) {
+                    this.getData = n;
+                }
+            }
+        })
+        Vue.component("lis", {
+            props: ['oitem'],
+            template: `<li v-on:click="getFn(oitem)">{{oitem}}</li>`,
+            data() {
+                return ({})
+            },
+            methods: {
+                getFn(val) {
+                    this.$emit('getfnf', val)
+                }
+            }
+        })
+
+
+        new Vue({
+            el: "#box",
+            data: {
+                list: ['javascript', 'css', 'html', 'vue', 'react', 'node'],
+                list2: ['javascript2', 'css2', 'html2', 'vue2', 'react2', 'node2']
+                    // comtent: {
+                    //     'javascript': ["4", 'ES6', 'ES7'],
+                    //     'css': ['CSS2', 'CSS3'],
+                    //     'html': ['XHTML', 'HTML5'],
+                    //     'vue': [1, 2],
+                    //     'react': [1, 2],
+                    //     node: [4, 5, 6]
+                    // }
+            },
+            methods: {}
+        })
+    </script>
+
+</body>
+
+</html>
