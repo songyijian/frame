@@ -1,23 +1,23 @@
 <!doctype html>
 <html lang="en">
 
-
-
 <head>
     <meta charset="UTF-8" />
-    <title>21、自定义事件</title>
+    <title>22、slot 插槽</title>
     <script src="./vue.min.js">
     </script>
 </head>
 
 <body>
-    <h1>自定义事件 $emit()</h1>
+    <h1>slot 插槽：dom形式传参方式，接收dom</h1>
     <div id="box">
         <h3></h3>
         <div>
             <p>{{getData}}</p>
             <ul>
-                <lis v-for="item in list" :oitem="item"></lis>
+                <lis v-for="(item,index) in list" :oitem="item">
+                    <span>{{index}}_slot插槽dom:</span>
+                </lis>
             </ul>
         </div>
     </div>
@@ -26,7 +26,7 @@
     <script type="text/javascript ">
         Vue.component("lis", {
             props: ['oitem'],
-            template: `<li v-on:click="getFn(oitem)">{{oitem}}</li>`,
+            template: `<li v-on:click="getFn(oitem)"><slot></slot> | props: {{oitem}}</li>`,
             data() {
                 return ({})
             },
@@ -49,10 +49,7 @@
                 })
             },
             methods: {
-                // getDcall(n) {
-                //     this.getData = n
-                //     console.log('------')
-                // }
+
             }
         })
     </script>
