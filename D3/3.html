@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>1.D3 </title>
+    <script src="d3.v4.js"></script>
+</head>
+
+<body>
+    <h2> 绑定数据 </h2>
+    <pre>
+创建一组对象：.selectAll('')
+数据绑定 ：.data(data)-绑定数据 
+循环: .enter()
+
+
+let rectList = osvg.selectAll('rect')
+    .data(datas) // ==vue data  ==react getinitalstate
+    .enter() 
+    .append('rect')
+    .style('fill', 'red')
+    .attr('width', function(n) {   
+        console.log(n);
+        return n * 2;
+    })
+    .attr('height', 50)
+    .attr('y', (n, index) => {  // == forEach(item, index)
+        console.log(n, index)
+        return index * 60;
+    })
+    </pre>
+
+
+
+    <hr>
+    <div id="box"></div>
+
+    <script>
+        var datas = [10, 80, 190, 101]
+
+
+        const osvg = d3.select("#box")
+            .append('svg')
+            .attr('width', 500)
+            .attr('height', 500);
+
+        let rectList = osvg.selectAll('rect')
+            .data(datas)
+            .enter()
+            .append('rect')
+            .style('fill', 'red')
+            .attr('width', function(n) {
+                console.log(n);
+                return n * 2;
+            })
+            .attr('height', 50)
+            .attr('y', (n, index) => {
+                console.log(n, index)
+                return index * 60;
+            })
+    </script>
+</body>
+
+</html>

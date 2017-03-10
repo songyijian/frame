@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>1.D3 </title>
+    <script src="d3.v4.js"></script>
+</head>
+
+<body>
+    <h2>D3创建svg元素</h2>
+    <hr>
+    <div id="box">
+    </div>
+
+    <script>
+        const osvg = d3.select("#box")
+            .append('svg')
+            .attr('width', 500)
+            .attr('height', 500);
+
+        let oc = osvg.append('circle')
+            .attr('r', 50)
+            .attr('cx', 50)
+            .attr('cy', 50)
+            .attr('fill', 'red');
+
+        let txt = osvg.append('text')
+            .text("d3 set")
+            .attr('y', 30)
+            .attr('x', 0)
+            .style('color', '#000');
+
+
+        let orect = osvg.append('rect')
+            .attr('x', 0)
+            .attr('y', 150)
+            .attr('width', 200)
+            .attr('height', 100)
+            .style('fill', '#000');
+    </script>
+</body>
+
+</html>

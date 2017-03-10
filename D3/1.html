@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>1.D3 select</title>
+    <script src="d3.v4.js"></script>
+</head>
+
+<body>
+    <div>
+        .select() .text() .append() .style() .attr()
+    </div>
+    <hr>
+    <p> hello worde </p>
+    <div id="box"></div>
+
+    <script>
+        d3.select("p").text(" hello worde, 3d set hello 3D ");
+
+        d3.select('#box')
+            .append('h2')
+            .attr('id', "appendid")
+            .attr('name', "appendname")
+            .style('color', 'red')
+            .text("D3 append h2 attr id and name");
+
+        console.log(d3)
+    </script>
+</body>
+
+</html>
