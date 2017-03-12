@@ -12,8 +12,8 @@
     <pre>
 创建一组对象：.selectAll('')
 数据绑定 ：.data(data)-绑定数据 
-循环: .enter()
-
+为缺失的元素返回占位符: .enter() - 为后面创建的返回元素占位
+当前选择中存在但是当前DOM元素中还不存在的每个数据元素的占位符节点。此方法只在由data运算符返回的更新选择中定义。
 
 let rectList = osvg.selectAll('rect')
     .data(datas) // ==vue data  ==react getinitalstate

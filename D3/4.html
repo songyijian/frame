@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>1.D3 </title>
+    <script src="d3.v4.js"></script>
+    <style>
+        svg {
+            border: 1px solid
+        }
+    </style>
+</head>
+
+<body>
+    <h2> 绑定数据 </h2>
+    <pre>
+    </pre>
+
+    <hr>
+    <div id="box"></div>
+
+    <script>
+        //当前画布上 500，如果数据 > 500 就要用到比例了，刻度尺也是这样
+
+        var datas = [10, 80, 190, 101];
+        let width = 500,
+            height = 500;
+
+
+
+
+        const osvg = d3.select("#box")
+            .append('svg')
+            .attr('width', width)
+            .attr('height', height);
+
+
+
+        // 比例计算，数据根据比例尺来显示
+        //4.x.x 版本 
+        console.log(d3.scaleLinear)
+        var widthLinear = d3.scaleLinear()
+            .domain([0, 300]) //比例
+            .range([0, width]); //根据不利换算宽度
+
+        var colorLinear = d3.scaleLinear()
+            .domain([0, 300])
+            .range(['yellow', 'red'])
+
+
+
+
+        let rectList = osvg.selectAll('rect')
+            .data(datas)
+            .enter()
+            .append('rect')
+            .style('fill', n => {
+                return colorLinear(n)
+            })
+
+        .attr('width', function(n) {
+                console.log(n);
+                return widthLinear(n);
+                //return n * 2;
+            })
+            .attr('height', 50)
+            .attr('y', (n, index) => {
+                console.log(n, index)
+                return index * 60;
+            })
+    </script>
+</body>
+
+</html>

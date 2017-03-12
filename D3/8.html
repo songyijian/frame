@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="d3.v4.js"></script>
+    <style>
+        svg {
+            margin: 2rem
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <script>
+        var padding = {
+            left: 30,
+            right: 30,
+            top: 20,
+            bottom: 20
+        };
+
+        var dataset = [10, 20, 30, 40, 33, 24, 12, 5];
+        var nw = nh = 500;
+
+        var osvg = d3.select("body")
+            .append('svg')
+            .attr('width', nw)
+            .attr('height', nh);
+
+        var wscale = d3.scaleLinear()
+            .domain([0, dataset.length])
+            .range([0, nw - (padding.left + padding.right)]);
+
+        var hscale = d3.scaleLinear()
+            .domain([0, d3.max(dataset)])
+            .range([nh - (padding.top + padding.bottom), 0]);
+
+        var yaxis = d3.axisLeft()
+            .scale(hscale)
+            .ticks(10);
+
+        var xaxis = d3.axisBottom()
+            .scale(wscale);
+
+        var rectList = osvg.selectAll('rect')
+            .data(dataset)
+            .enter()
+            .append('rect')
+            .attr("transform", "translate(" + padding.left + "," + padding.top + ")")
+            .attr('fill', 'yellow')
+            .attr('x', (item, index) => {
+                return wscale(index);
+            })
+            .attr('width', 50)
+            .attr('y', (item, index) => {
+                return hscale(item)
+            })
+            .attr('height', item => {
+                return nh - hscale(item) - (padding.top + padding.bottom);
+            })
+            .on('mouseover', function(d, i, o) {
+                console.log(d, i, o)
+                d3.select(this)
+                    .attr("fill", "red");
+            })
+            .on('mouseout', function(ev, i, o) {
+                d3.select(this)
+                    .attr("fill", "yellow");
+
+            });
+        var rectTxt = osvg.selectAll('text')
+            .data(dataset)
+            .enter()
+            .append('text')
+            .attr("transform", "translate(" + padding.left + "," + padding.top + ")")
+            .attr('x', (item, index) => {
+                return wscale(index);
+            })
+            .attr('y', (item, index) => {
+                return hscale(item) + 30
+            })
+            .attr('text-align', 'center')
+            .style('fill', 'red')
+            .text((item) => {
+                return item
+            })
+
+        osvg.append('g')
+            .attr('transform', 'translate(' + padding.left + ',480)')
+            .call(xaxis);
+
+        osvg.append('g')
+            .attr('transform', 'translate(' + padding.left + ',' + padding.top + ')')
+            .call(yaxis)
+    </script>
+</body>
+
+</html>

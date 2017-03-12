@@ -3,6 +3,14 @@ svg 基础知识
 1. 基础操作.select() .text() .append() .style() .attr()
 2. svg 的创建 .select()
 3. 根据数据创建: .selectAll() .data(data)-绑定数据  .enter()-循环 
+4. 比例 d3.scaleLinear() .domain([0, 300]) //比例
+                        .range([0, width]); //根据不利换算值
 
+5. 刻度尺  d3.axisBottom()
+            .scale(widthLinear) //比例比例数据
+            .ticks(10) //刻度尺单位
 
+        .call(axis); //绑定刻度尺
 
+6. 实际例子
+7. 动画
