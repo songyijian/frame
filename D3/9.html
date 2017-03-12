@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="d3.v4.js"></script>
+    <style>
+        svg {
+            margin: 2rem
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <script>
+        var dataset = [10, 20, 30, 40, 33, 24, 12, 5];
+        var nw = nh = 500;
+
+        var osvg = d3.select('body')
+            .append('svg')
+            .attr('width', nw)
+            .attr('height', nh)
+
+        var rectList = osvg.selectAll('rect')
+            .data(dataset)
+            .enter()
+
+        var pie = d3.layout.pie();
+        var piedata = pie(dataset)
+        console.log(piedata)
+    </script>
+</body>
+
+</html>
