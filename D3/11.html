@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>1.D3 </title>
+    <title>柱状图</title>
     <script src="d3.v4.js"></script>
     <style>
         svg {
@@ -28,6 +28,11 @@
 
             var xsc = d3.scaleBand()
                 .domain(d3.range(datas.length))
+                .rangeRound([0, w - (ypadding * 2)])
+                .padding(0.05); //决定柱状图的空隙
+
+            var xzz = d3.scaleBand()
+                .domain(['a', 'd', 'l', 'k'])
                 .rangeRound([0, w - (ypadding * 2)]);
 
             var ysc = d3.scaleLinear()
@@ -35,7 +40,7 @@
                 .range([0, h - (ypadding * 2)]);
 
             var axsiB = d3.axisBottom()
-                .scale(xsc);
+                .scale(xzz);
 
             var axsiL = d3.axisLeft()
                 .scale(ysc)
@@ -58,7 +63,8 @@
                 })
                 .attr('width', item => {
                     console.log(xsc.paddingOuter())
-                    return xsc.step() - 4
+                    return xsc.bandwidth()
+                        //  return xsc.step()
                 })
                 .attr('y', (item, index) => {
                     return h - ysc(item) - ypadding * 2;
@@ -80,7 +86,7 @@
                     return h - ysc(item) - ypadding * 2;
                 })
                 .attr('text-anchor', 'middle')
-                .attr('x', (xsc.step() - 10) / 2)
+                .attr('x', xsc.bandwidth() / 2)
                 .attr('dy', '1.1rem');
 
             osvg.append('g')

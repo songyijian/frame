@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>1.D3 </title>
+    <title>获取数据- 柱状图 </title>
     <script src="d3.v4.js"></script>
     <style>
         svg {
@@ -15,8 +15,16 @@
 <body>
     <script>
         'use strict';
-        (() => {
-            var datas = [10, 80, 190, 101]
+
+        function type(d) {
+            //对数据进行处理的一层
+            d.population = +d.population; // "+": 将字符串转为数字，并覆盖原来的值
+            return d;
+        }
+        d3.csv('./data.csv', type, (d) => {
+            console.log(d)
+
+            var datas = d;
             var xpadding = 20,
                 ypadding = 20,
                 w = 500,
@@ -26,17 +34,23 @@
                 .attr('width', w)
                 .attr('height', h);
 
-            var xsc = d3.scaleBand()
-                .domain(d3.range(datas.length))
-                .rangeRound([0, w - (ypadding * 2)]);
 
             var xzz = d3.scaleBand()
-                .domain(['a', 'd', 'l', 'k'])
+                .domain(datas.map(function(data) {
+                    return data.year
+                }))
                 .rangeRound([0, w - (ypadding * 2)]);
 
+            var xsc = d3.scaleBand()
+                .domain(d3.range(datas.length))
+                .rangeRound([0, w - (ypadding * 2)])
+                .padding(0.05); //决定柱状图的空隙
+
             var ysc = d3.scaleLinear()
-                .domain([0, d3.max(datas)])
-                .range([0, h - (ypadding * 2)]);
+                .domain([d3.max(datas.map(function(data) {
+                    return data.population
+                })), 0])
+                .range([h - (ypadding * 2), 0]);
 
             var axsiB = d3.axisBottom()
                 .scale(xzz);
@@ -44,28 +58,29 @@
             var axsiL = d3.axisLeft()
                 .scale(ysc)
 
-            //线性尺
+
             var itemList = osvg.append('g')
                 .attr('transform', 'translate(' + xpadding + ',' + ypadding + ')')
                 .selectAll('g')
                 .data(datas)
                 .enter()
                 .append('g')
-                .attr('transform', function(item, index) {
+                .attr('transform', function(item, index, d) {
+                    // console.log(item, index, d)
                     return ('translate(' + xsc(index) + ',0)')
                 });
 
             itemList.append('rect')
                 .style('fill', 'red')
                 .attr('height', item => {
-                    return ysc(item)
+                    return ysc(item.population)
                 })
                 .attr('width', item => {
-                    console.log(xsc.paddingOuter())
-                    return xsc.step() - 4
+                    return xsc.bandwidth()
+                        //  return xsc.step()
                 })
                 .attr('y', (item, index) => {
-                    return h - ysc(item) - ypadding * 2;
+                    return h - ysc(item.population) - ypadding * 2;
                 })
                 .on('mouseover', function(i, o, t) {
                     d3.select(this).style('fill', 'yellow')
@@ -78,13 +93,13 @@
             itemList.append('text')
                 .style('fill', '#000')
                 .text((item) => {
-                    return item
+                    return item.population + '亿'
                 })
                 .attr('y', function(item) {
-                    return h - ysc(item) - ypadding * 2;
+                    return h - ysc(item.population) - ypadding * 2;
                 })
                 .attr('text-anchor', 'middle')
-                .attr('x', (xsc.step() - 10) / 2)
+                .attr('x', xsc.bandwidth() / 2)
                 .attr('dy', '1.1rem');
 
             osvg.append('g')
@@ -94,8 +109,6 @@
             osvg.append('g')
                 .attr('transform', 'translate(' + ypadding + ',' + xpadding + ')')
                 .call(axsiL)
-
-
 
         })()
     </script>
