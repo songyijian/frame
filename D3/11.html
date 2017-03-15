@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>柱状图</title>
+    <script src="d3.v4.js"></script>
+    <style>
+        svg {
+            background: #ccc;
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        'use strict';
+        (() => {
+            var datas = [10, 80, 190, 101]
+            var xpadding = 20,
+                ypadding = 20,
+                w = 500,
+                h = 500;
+            var osvg = d3.select('body')
+                .append("svg")
+                .attr('width', w)
+                .attr('height', h);
+
+            var xsc = d3.scaleBand()
+                .domain(d3.range(datas.length))
+                .rangeRound([0, w - (ypadding * 2)])
+                .padding(0.05); //决定柱状图的空隙
+
+            var xzz = d3.scaleBand()
+                .domain(['a', 'd', 'l', 'k'])
+                .rangeRound([0, w - (ypadding * 2)]);
+
+            var ysc = d3.scaleLinear()
+                .domain([0, d3.max(datas)])
+                .range([0, h - (ypadding * 2)]);
+
+            var axsiB = d3.axisBottom()
+                .scale(xzz);
+
+            var axsiL = d3.axisLeft()
+                .scale(ysc)
+
+            //线性尺
+            var itemList = osvg.append('g')
+                .attr('transform', 'translate(' + xpadding + ',' + ypadding + ')')
+                .selectAll('g')
+                .data(datas)
+                .enter()
+                .append('g')
+                .attr('transform', function(item, index) {
+                    return ('translate(' + xsc(index) + ',0)')
+                });
+
+            itemList.append('rect')
+                .style('fill', 'red')
+                .attr('height', item => {
+                    return ysc(item)
+                })
+                .attr('width', item => {
+                    console.log(xsc.paddingOuter())
+                    return xsc.bandwidth()
+                        //  return xsc.step()
+                })
+                .attr('y', (item, index) => {
+                    return h - ysc(item) - ypadding * 2;
+                })
+                .on('mouseover', function(i, o, t) {
+                    d3.select(this).style('fill', 'yellow')
+                })
+                .on('mouseout', function(i, o, t) {
+                    d3.select(this).style('fill', 'red')
+                });
+
+
+            itemList.append('text')
+                .style('fill', '#000')
+                .text((item) => {
+                    return item
+                })
+                .attr('y', function(item) {
+                    return h - ysc(item) - ypadding * 2;
+                })
+                .attr('text-anchor', 'middle')
+                .attr('x', xsc.bandwidth() / 2)
+                .attr('dy', '1.1rem');
+
+            osvg.append('g')
+                .attr('transform', 'translate(' + xpadding + ',' + (h - ypadding) + ')')
+                .call(axsiB);
+
+            osvg.append('g')
+                .attr('transform', 'translate(' + ypadding + ',' + xpadding + ')')
+                .call(axsiL)
+
+
+
+        })()
+    </script>
+</body>
+
+</html>

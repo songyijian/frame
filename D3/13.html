@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>13.D3 饼状图 </title>
+    <script src="d3.v4.js"></script>
+    <style>
+        svg {
+            background: #ccc;
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        'use strict';
+        d3.csv('./data2.csv', (d) => {
+            d.population = +d.population;
+            return d;
+        }, (data) => {
+            var xpadding = 20,
+                ypadding = 20,
+                w = 500,
+                h = 500;
+            var osvg = d3.select('body')
+                .append("svg")
+                .attr('width', w)
+                .attr('height', h)
+                .append('g')
+                .attr('transform', 'translate(200,200)');
+
+
+            // arc  https://github.com/d3/d3-shape
+            //饼状图路径 计算
+            // var arc = d3.arc()
+            //     .innerRadius(50) //内半径
+            //     .outerRadius(100) //外半径
+            //     .startAngle(0) //其实角
+            //     .endAngle(120 * Math.PI / 180); //结束角
+
+            // osvg.append('path')
+            //     .attr('d', arc)
+            var narry = data.map(data => {
+                return data.population;
+            });
+            // var color = d3.scaleLinear()
+            //     .domain([d3.min(narry), d3.max(narry)])
+            //     .range(['yellow', 'red']);
+
+            var color = d3.scaleOrdinal(d3.schemeCategory10)
+
+            var arc = d3.arc()
+                .innerRadius(50)
+                .outerRadius(150)
+
+            var clist = d3.pie()
+                .value(function(data) {
+                    return data.population;
+                })
+
+
+            var cPath = osvg.selectAll('path')
+                .data(clist(data))
+                // .data(clist(data.map(data => {
+                //     return data.population;
+                // })))
+                .enter()
+                .append('path')
+                .attr("fill", function(item, i) {
+                    return color(i)
+                })
+                .attr('d', arc)
+                .on();
+
+            var tPath = osvg.selectAll('text')
+                .data(clist(data))
+                .enter()
+                .append('text')
+                .text(function(data) {
+                    console.log(data)
+                    return data.data.education;
+                })
+                .attr("transform", function(data) {
+                    console.log(arc.centroid(data))
+                    return "translate(" + arc.centroid(data) + ")";
+                })
+                .attr("text-anchor", "middle")
+                .attr("font-size", "10px");
+
+        })
+    </script>
+
+
+</body>
+
+</html>
