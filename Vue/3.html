@@ -5,49 +5,107 @@
     <meta charset="UTF-8" />
     <title>vue指令</title>
     <style type="text/css">
-        .color {
-            color: red;
-        }
-        
-        .size20 {
-            font-size: 26px;
-        }
+        p{ padding-left: 2rem}
+
+        .red{ background: red}
+        .bor{ border: 2px solid }
     </style>
 </head>
 
 <body>
-    <a href="https://cn.vuejs.org/v2/api/#指令">vue指令>官网</a>
-    <h3>v-for</h3>
-    <ul>
-        <li></li>
-    </ul>
+<a href="https://cn.vuejs.org/v2/api/#指令">vue指令>官网</a>
+<hr />
 
-    <div id="box">
-        <div>{{v}}</div>
-        <hr />
-        <div v-html="htmls"></div>
-        <p v-bind:title="title">鼠标放上查看title</p>
-        <input type="button" value="按钮绑定事件" v-on:click="bomb" />
-        <p class="color" :class={ "size20":true}>class 绑定</p>
-    </div>
+
+<div id="box">
+
+    <h3>v-text: </h3>
+    <p v-text="text"></p>
+
+    <h3>v-html: </h3>
+    <p v-html="text"></p>
+
+    <h3>v-show: </h3>
+    <p v-show="shows">{{shows}} 简单地切换元素的 CSS 属性 display</p>
+
+    <h3>v-if: </h3>
+    <p><input type="number" v-model="fs"></p>
+    <p v-if="fs == ''">请输入你的分数</p>
+    <p v-else-if="fs<60">{{fs}}:没有及格</p>
+    <p v-else>{{fs}}:考的不错！</p>
+
+
+    <h3>v-for: </h3>
+    <p v-for="(item,index) in list">{{index}} . {{item}}</p>
+    <span v-for="(key,val,index) in obj"> {{index}} . {{key}}:{{val}} |</span>
+    <p v-for="item in 3">单纯循环第：{{item}} 次</p>
+
+    <h3>v-for: </h3>
+    <p>
+        <button v-on:click="onev+=1">点击_{{onev}}</button>
+        <button v-on:click="doThat('hello', $event)">btn</button>
+        <a @click.prevent @click="" href="https://cn.vuejs.org/v2/api/#v-html">阻止默认行为</a>
+    </p>
+    <p>
+        <my-dom v-for="(val,index) in chilrens" v-bind:val="val" :index="index" v-on:fev="fev"></my-dom>
+    </p>
+
+    <h3>v-bind: </h3>
+    <p>src 要绑定才能渲染</p>
+    <p>
+        <img v-bind:src="imageSrc">
+        <!-- class 绑定 -->
+        <span :class="{ red: true }">class .red</span>
+        <span :class="['bor', { red: true }]"> class  [bor, { red: true }]</span>
+    </p>
+
+</div>
 
     <script src="src/vue.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript">
-        new Vue({
-            el: "#box",
-            data: {
-                v: `v-text v-html v-show v-if v-else v-else-if v-for v-on v-bind v-model v-pre v-cloak v-once`,
-                a: "v-model",
-                title: "通过v-bind 来处理属性",
-                htmls: `<span>这里是通过v-html渲染的一个html字符串</span>`
-            },
-            methods: {
-                bomb() {
-                    alert("成功绑定一个envt")
+
+        Vue.component("my-dom",{
+            props:['val','index'],
+            template:`<button v-on:click="evfn(index,$event)"> 被点击过：{{val.n}}</button> `,
+            methods:{
+                evfn(index,ev){
+                    this.$emit('fev',index,ev)  //在这里调用父级事件
                 }
             }
         })
+
+        new Vue({
+            el: "#box",
+            data: {
+                text:"<em>data text</em>",
+                shows:true,
+                fs:0,
+                list: ['javascript', 'css', 'html'],
+                obj: {
+                    name: "ssss",
+                    age: 123,
+                    sex: "男"
+                },
+                onev:0,
+                chilrens:[{name:'btn1',n:0},{name:'btn2',n:0}],
+                imageSrc:"https://cn.vuejs.org/images/logo.png"
+            },
+            methods: {
+                doThat(a,ev){ console.log(a,ev)},
+                fev(index,ev){
+                    console.log(index,ev)
+                    this.chilrens[index].n++;
+                }
+            }
+        })
+
+
+
     </script>
 </body>
 
 </html>
+
+
+
+

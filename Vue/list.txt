@@ -13,7 +13,7 @@
 10、过滤器  局部=filters 全局=Vue.filter / 数据|过滤方法
 11、计算 computed（处理原数据，计算出一个实际上不存在的属性）
 12、计算 set，get
-13、观察  watch 
+13、观察 watch 
 
 14、样式：class
 15、样式：v-bind:style
