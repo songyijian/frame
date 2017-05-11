@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="box">1</div>
+
+    <script src="http://test.go.163.com/go/2017/0426/ChinaUnicom/js/jquery-3.1.1.min.js"></script>
+    <!--<script type="text/javascript" src="http://rap.alibab-inc.com/rap.plugin.js?projectId=18671"></script>-->
+    <script>
+        console.log($("#box"))
+        $.ajax({
+            url: "http://rapapi.org/mockjsdata/18671/getuserlist",
+            type: 'get',
+            dataType: 'json', //接收方式很重要（必填）
+            success: function(data) {
+                $('#box').html(data)
+                console.log(data)
+            }
+        });
+    </script>
+</body>
+
+</html>

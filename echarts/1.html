@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+        #box {
+            border: 1px solid red,
+        }
+    </style>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="box" style="width: 600px;height:400px;"></div>
+    <script src="http://echarts.baidu.com/dist/echarts.min.js"></script>
+    <script>
+        var box = document.querySelector("#box");
+        var EC = echarts.init(box);
+
+        //柱状图
+        var option = {
+            backgroundColor: '#999',
+            title: {
+                text: "测试"
+            },
+            tooplitp: {},
+            //工具箱
+            toolbox:{
+                show:true,
+                feature:{
+                    saveAsImage:{   //保存图片
+                        show:true
+                    }
+                }
+            },
+            //图例
+            legend: {
+                data: ['销量','随便加的']
+            },
+            //x轴
+            xAxis: {
+                data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"]
+            },
+            yAxis: {},
+            //数据
+            series: [{
+                name: '销量',
+                type: 'bar',
+                data: [5, 20, 36, 10, 10, 20]
+            },
+            {
+                name: '随便加的',
+                type: 'line',
+                data: [5, 20, 36, 10, 10, 20]
+            }]
+        };
+      
+        EC.setOption(option);
+    </script>
+</body>
+
+</html>
