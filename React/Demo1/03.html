@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="../src/react.js"></script>
+    <script src="../src/react-dom.js"></script>
+    <script src="../src/browser.min.js"></script>
+</head>
+
+<body>
+
+    <div id="box"></div>
+
+    <div id="box2"></div>
+
+
+    <script type="text/babel">
+
+        var data={ 
+            name:'react',
+            sex:"女",
+            age:18,
+        };
+
+        //组件
+        var Item1 = React.createClass({ 
+            render:function (){ 
+                return (
+                    <div>
+                        <h3>props 接收参数</h3>
+                        <p>{this.props.name} 性别：{this.props.sex} 年龄：{this.props.age}  </p>
+                    </div>
+                ) 
+            } 
+        }); 
+
+        var Item2=React.createClass({
+            render:function(){
+                var ch=this.props.children.map((item,index)=>{
+                    console.log(item)
+                    return <em key={index}>{item} </em>
+                })
+
+                return(
+                    <div>
+                        <h3> 插销：接收参数 this.props.children</h3>
+                        <p>
+                        方法1：React.Children.map()/
+                            {
+                                React.Children.map(this.props.children, function (item) {
+                                  return <em>{item} </em>;
+                                })
+                            }
+                        </p>
+                        <p> 方法2：this.props.children.map()/ {ch} </p>
+                    </div>
+                )
+            }
+        })
+
+
+
+        //渲染函数
+        ReactDOM.render(
+            <Item1 {...data}/>, 
+            document.getElementById('box')
+        );
+
+
+        ReactDOM.render(
+            <Item2>
+                <span>hello</span>
+                <span>world</span>
+            </Item2>,
+            document.getElementById('box2')
+        )
+
+
+
+
+
+    </script>
+</body>
+
+</html>
