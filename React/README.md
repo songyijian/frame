@@ -28,7 +28,7 @@
     )
 ```
 
-### 02.初识react
+### 02.jsx
 
 ```
 	var arr = [<p key="1">Hello world!</p>,<p key="2">React is awesome</p>]
@@ -62,28 +62,31 @@
 ### 03.组件参数传递: props,插销式
 
 ```
+//props 接收参数
+	return (
+	  <p>{this.props.name} 性别：{this.props.sex} 年龄：{this.props.age}  </p>
+	) 
     ReactDOM.render(
         <Item1 {...data}/>, 
         document.getElementById('box')
     );
 
 
-	//插销
+//插销获取参数
 	return(
-            <div>
-                <h3> 插销：接收参数 this.props.children</h3>
-                <p>
-                方法1：React.Children.map()/
-                    {
-                        React.Children.map(this.props.children, function (item) {
-                          return <em>{item} </em>;
-                        })
-                    }
-                </p>
-                <p> 方法2：this.props.children.map()/ {ch} </p>
-            </div>
-        )
-
+        <div>
+            <h3> 插销：接收参数 this.props.children</h3>
+            <p>
+            方法1：React.Children.map()/
+                {
+                    React.Children.map(this.props.children, function (item) {
+                      return <em>{item} </em>;
+                    })
+                }
+            </p>
+            <p> 方法2：this.props.children.map()/ {ch} </p>
+        </div>
+    )
     ReactDOM.render(
         <Item2>
             <span>hello</span>
