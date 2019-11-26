@@ -1,3 +1,5 @@
+
+
 function makeMap(
   str,
   expectsLowerCase

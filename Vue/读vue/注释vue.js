@@ -126,6 +126,8 @@
   /**
    * Make a map and return a function for checking if a key
    * is in that map.
+   * 
+   * 看名字是制作map，具体做什么用不清楚
    */
   function makeMap (
     str,
@@ -143,11 +145,16 @@
 
   /**
    * Check if a tag is a built-in tag.
+   * makeMap 的一处使用，往下看吧看看做什么的
+   * 
+   * makeMap('slot,component', true)("SLOT") //true
+   * makeMap('slot,component')("slot") //true
    */
   var isBuiltInTag = makeMap('slot,component', true);
 
   /**
    * Check if an attribute is a reserved attribute.
+   * 检查属性是否存在
    */
   var isReservedAttribute = makeMap('key,ref,slot,slot-scope,is');
 
