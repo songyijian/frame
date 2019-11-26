@@ -153,7 +153,7 @@
   var isBuiltInTag = makeMap('slot,component', true);
 
   /**
-   * Check if an attribute is a reserved attribute.
+   * 
    * 检查属性是否存在
    */
   var isReservedAttribute = makeMap('key,ref,slot,slot-scope,is');
@@ -171,7 +171,8 @@
   }
 
   /**
-   * Check whether an object has the property.
+   * 检查对象是否具有属性（自己属性非继承属性）
+   * https://www.cnblogs.com/weiqinl/p/8683207.html
    */
   var hasOwnProperty = Object.prototype.hasOwnProperty;
   function hasOwn (obj, key) {
