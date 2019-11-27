@@ -153,7 +153,6 @@
   var isBuiltInTag = makeMap('slot,component', true);
 
   /**
-   * 
    * 检查属性是否存在
    */
   var isReservedAttribute = makeMap('key,ref,slot,slot-scope,is');
@@ -171,7 +170,7 @@
   }
 
   /**
-   * 检查对象是否具有属性（自己属性非继承属性）
+   * hasOwn 检查对象是否具有属性（非：继承属性、原型连上的属性）
    * https://www.cnblogs.com/weiqinl/p/8683207.html
    */
   var hasOwnProperty = Object.prototype.hasOwnProperty;
@@ -181,6 +180,8 @@
 
   /**
    * Create a cached version of a pure function.
+   * 创建纯函数的缓存版本。
+   * Object.create(null) 通过这方式创建的{}对象是干净的，没有prototype（原型属性）
    */
   function cached (fn) {
     var cache = Object.create(null);
