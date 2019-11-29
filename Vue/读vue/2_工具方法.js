@@ -58,8 +58,26 @@ function makeFunc() {
   return displayName;
 }
 
-var myFunc = makeFunc();
-myFunc();
-myFunc();
-myFunc();
+// var myFunc = makeFunc();
+// myFunc();
+// myFunc();
+// myFunc();
 
+
+
+function setupHelp() {
+  var helpText = [
+    { 'id': 'email', 'help': 'Your e-mail address' },
+    { 'id': 'name', 'help': 'Your full name' },
+    { 'id': 'age', 'help': 'Your age (you must be over 16)' }
+  ];
+
+  for (var i = 0; i < helpText.length; i++) {
+    var item = helpText[i];
+  }
+  // for{} 不会形成作用域， 由于变量提升item会被提升到外面，循环后item 就为最后一条信息
+  // 这也是通常使用闭包的原因
+  console.log('////',item);
+}
+
+setupHelp()

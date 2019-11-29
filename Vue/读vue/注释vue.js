@@ -179,8 +179,7 @@
   }
 
   /**
-   * Create a cached version of a pure function.
-   * 创建纯函数的缓存版本。
+   * 创建纯函数的缓存,闭包的利用
    * Object.create(null) 通过这方式创建的{}对象是干净的，没有prototype（原型属性）
    */
   function cached (fn) {
@@ -220,9 +219,11 @@
    * since native bind is now performant enough in most browsers.
    * But removing it would mean breaking code that was able to run in
    * PhantomJS 1.x, so this must be kept for backward compatibility.
+   * 
+   polyfill 向下兼容工具函数
    */
 
-  /* istanbul ignore next */
+  // bind实现
   function polyfillBind (fn, ctx) {
     function boundFn (a) {
       var l = arguments.length;
@@ -246,7 +247,7 @@
     : polyfillBind;
 
   /**
-   * Convert an Array-like object to a real Array.
+   * 可遍历元素转数组
    */
   function toArray (list, start) {
     start = start || 0;
@@ -259,7 +260,7 @@
   }
 
   /**
-   * Mix properties into target object.
+   *  很简单的，继承方法，遍历拷贝到继承者身上
    */
   function extend (to, _from) {
     for (var key in _from) {
@@ -269,7 +270,7 @@
   }
 
   /**
-   * Merge an Array of Objects into a single Object.
+   * 可遍历元素，转obj
    */
   function toObject (arr) {
     var res = {};
@@ -281,7 +282,7 @@
     return res
   }
 
-  /* eslint-disable no-unused-vars */
+  /* eslint-disable no-unused-vars  eslint禁用没有未使用的变量*/
 
   /**
    * Perform no operation.
