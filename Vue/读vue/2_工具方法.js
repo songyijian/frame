@@ -1,5 +1,8 @@
 
 
+
+// 工具方法
+
 // function makeMap(
 //   str,
 //   expectsLowerCase
@@ -77,7 +80,9 @@ function setupHelp() {
   }
   // for{} 不会形成作用域， 由于变量提升item会被提升到外面，循环后item 就为最后一条信息
   // 这也是通常使用闭包的原因
-  console.log('////',item);
+  console.log('////', item);
 }
 
 setupHelp()
+
+

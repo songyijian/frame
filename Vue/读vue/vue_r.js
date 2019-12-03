@@ -288,6 +288,7 @@
    * Perform no operation.
    * Stubbing args to make Flow happy without leaving useless transpiled code
    * with ...rest (https://flow.org/blog/2017/05/07/Strict-Function-Call-Arity/).
+   * 严格检查函数调用是否正确
    */
   function noop (a, b, c) {}
 
@@ -313,8 +314,7 @@
   }
 
   /**
-   * Check if two values are loosely equal - that is,
-   * if they are plain objects, do they have the same shape?
+   * 深度对比函数
    */
   function looseEqual (a, b) {
     if (a === b) { return true }
@@ -352,9 +352,8 @@
   }
 
   /**
-   * Return the first index at which a loosely equal value can be
-   * found in the array (if value is a plain object, the array must
-   * contain an object of the same shape), or -1 if it is not present.
+  
+   *  val 在数组里面的位置
    */
   function looseIndexOf (arr, val) {
     for (var i = 0; i < arr.length; i++) {
@@ -365,6 +364,7 @@
 
   /**
    * Ensure a function is called only once.
+   * 函数只会自信一次
    */
   function once (fn) {
     var called = false;
@@ -402,51 +402,62 @@
   /*  */
 
 
+  ////////////////////////////////////////////////////////////////////////////////////
+  // Vue.config  全局配置
+  // https://cn.vuejs.org/v2/api/#全局配置
 
   var config = ({
     /**
-     * Option merge strategies (used in core/util/options)
+     * 选项合并策略（用于core/util/options）
      */
-    // $flow-disable-line
+    // $flow-disable-line 选择合并的Strategies
+    // https://cn.vuejs.org/v2/guide/mixins.html#自定义选项合并策略
     optionMergeStrategies: Object.create(null),
 
     /**
-     * Whether to suppress warnings.
+     * 是否抑制警告。
      */
     silent: false,
 
     /**
-     * Show production mode tip message on boot?
+     * 输出当前的环境提示
      */
     productionTip: "development" !== 'production',
 
     /**
-     * Whether to enable devtools
+     * 是否启用devtools
      */
     devtools: "development" !== 'production',
 
     /**
-     * Whether to record perf
+     * 性能监测
+     * https://vuedose.tips/tips/measure-runtime-performance-in-vue-js-apps/
      */
     performance: false,
 
     /**
-     * Error handler for watcher errors
+     * errorHandler 接收错误回调函数
+     * https://cn.vuejs.org/v2/api/index.html#errorHandler
      */
     errorHandler: null,
 
     /**
-     * Warn handler for watcher warns
+     * 警告
+     * https://cn.vuejs.org/v2/api/index.html#warnHandler
      */
     warnHandler: null,
 
     /**
      * Ignore certain custom elements
+     * 忽略元素（组件），不忽略会被报错未注册该组件
+     * https://cn.vuejs.org/v2/api/index.html#ignoredElements
      */
     ignoredElements: [],
 
     /**
      * Custom user key aliases for v-on
+     * 自定义键位别名
+     * https://cn.vuejs.org/v2/api/index.html#keyCodes
      */
     // $flow-disable-line
     keyCodes: Object.create(null),
@@ -488,6 +499,9 @@
     /**
      * Perform updates asynchronously. Intended to be used by Vue Test Utils
      * This will significantly reduce performance if set to false.
+     * 
+     * 异步执行更新。拟由Vue测试实用程序使用如果设置为false，这将显著降低性能。
+     * async 异步支持
      */
     async: true,
 
@@ -499,6 +513,11 @@
 
   /*  */
 
+
+
+  ////////////////////////////////////////////////////////////////////////////////////
+  // 用于解析html标记、组件名称和属性路径
+
   /**
    * unicode letters used for parsing html tags, component names and property paths.
    * using https://www.w3.org/TR/html53/semantics-scripting.html#potentialcustomelementname
@@ -508,21 +527,25 @@
 
   /**
    * Check if a string starts with $ or _
+   * 检查字符串是否以$或开头_
    */
-  function isReserved (str) {
+  // str.charCodeAt(index)
+  // https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/charCodeAt
+  function isReserved(str) {
     var c = (str + '').charCodeAt(0);
     return c === 0x24 || c === 0x5F
   }
 
   /**
    * Define a property.
+   * 定义属性，后续属性劫持的核心方法
    */
   function def (obj, key, val, enumerable) {
     Object.defineProperty(obj, key, {
-      value: val,
-      enumerable: !!enumerable,
-      writable: true,
-      configurable: true
+      value: val, 
+      enumerable: !!enumerable, //可枚举
+      writable: true, //是否可读写
+      configurable: true //可以被删除
     });
   }
 
