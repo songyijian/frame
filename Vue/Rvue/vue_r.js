@@ -159,6 +159,7 @@
 
   /**
    * Remove an item from an array.
+   * 删除数组内的元素
    */
   function remove (arr, item) {
     if (arr.length) {
@@ -522,6 +523,9 @@
    * unicode letters used for parsing html tags, component names and property paths.
    * using https://www.w3.org/TR/html53/semantics-scripting.html#potentialcustomelementname
    * skipping \u10000-\uEFFFF due to it freezing up PhantomJS
+   * 
+   * key路径字符正则
+   * https://bluesock.org/~willg/dev/ascii.html
    */
   var unicodeRegExp = /a-zA-Z\u00B7\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u037D\u037F-\u1FFF\u200C-\u200D\u203F-\u2040\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD/;
 
@@ -550,8 +554,10 @@
   }
 
   /**
-   * Parse simple path.
-   */
+  * 根据路径找obj的值，parsePath('a.c')({ a: { c: { b: 1234 } } })
+  * 不支持a[c]
+  * unicodeRegExp.source 返回unicodeRegExp的string格式a-zA-Z\u00B7\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u037D\u037F-\u1FFF\u200C-\u200D\u203F-\u2040\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD
+  */
   var bailRE = new RegExp(("[^" + (unicodeRegExp.source) + ".$_\\d]"));
   function parsePath (path) {
     if (bailRE.test(path)) {
@@ -570,9 +576,11 @@
   /*  */
 
   // can we use __proto__?
+  // 检查是否支持__proto__
   var hasProto = '__proto__' in {};
 
   // Browser environment sniffing
+  // 运行环境判定
   var inBrowser = typeof window !== 'undefined';
   var inWeex = typeof WXEnvironment !== 'undefined' && !!WXEnvironment.platform;
   var weexPlatform = inWeex && WXEnvironment.platform.toLowerCase();
@@ -587,8 +595,10 @@
   var isFF = UA && UA.match(/firefox\/(\d+)/);
 
   // Firefox has a "watch" function on Object.prototype...
+  // 火狐的一个属性 https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/watch
   var nativeWatch = ({}).watch;
 
+  //验证支持情况
   var supportsPassive = false;
   if (inBrowser) {
     try {
@@ -605,6 +615,8 @@
 
   // this needs to be lazy-evaled because vue may be required before
   // vue-server-renderer can set VUE_ENV
+  // vue服务器渲染器可以设置vue环境
+  // 判断服务端渲染
   var _isServer;
   var isServerRendering = function () {
     if (_isServer === undefined) {
@@ -620,14 +632,18 @@
     return _isServer
   };
 
-  // detect devtools
+  // 浏览器开发钩子
   var devtools = inBrowser && window.__VUE_DEVTOOLS_GLOBAL_HOOK__;
 
-  /* istanbul ignore next */
+  /* istanbul ignore next 
+
+    typeof Symbol //"function"
+    Symbol.toString() //"function Symbol() { [native code] }"
+  */
   function isNative (Ctor) {
     return typeof Ctor === 'function' && /native code/.test(Ctor.toString())
   }
-
+  // 判断Symbol数据是否支持
   var hasSymbol =
     typeof Symbol !== 'undefined' && isNative(Symbol) &&
     typeof Reflect !== 'undefined' && isNative(Reflect.ownKeys);
@@ -639,6 +655,7 @@
     _Set = Set;
   } else {
     // a non-standard Set polyfill that only works with primitive keys.
+    // 模拟一个set
     _Set = /*@__PURE__*/(function () {
       function Set () {
         this.set = Object.create(null);
@@ -665,12 +682,16 @@
   var formatComponentName = (noop);
 
   {
+    // 类名称格式化，一些驼峰处理吧 
+    //  classify('saig-sd[abc]_fdf') // Sa:igSd[abc]Fdf
     var hasConsole = typeof console !== 'undefined';
     var classifyRE = /(?:^|[-_])(\w)/g;
     var classify = function (str) { return str
       .replace(classifyRE, function (c) { return c.toUpperCase(); })
       .replace(/[-_]/g, ''); };
 
+
+    // 警告输出
     warn = function (msg, vm) {
       var trace = vm ? generateComponentTrace(vm) : '';
 
@@ -681,6 +702,7 @@
       }
     };
 
+    // 提示
     tip = function (msg, vm) {
       if (hasConsole && (!config.silent)) {
         console.warn("[Vue tip]: " + msg + (
@@ -689,6 +711,7 @@
       }
     };
 
+    // 格式组件名称
     formatComponentName = function (vm, includeFile) {
       if (vm.$root === vm) {
         return '<Root>'
@@ -721,6 +744,7 @@
       return res
     };
 
+    // 生成组件跟踪
     generateComponentTrace = function (vm) {
       if (vm._isVue && vm.$parent) {
         var tree = [];
@@ -780,8 +804,10 @@
 
   Dep.prototype.notify = function notify () {
     // stabilize the subscriber list first
+    // 订阅列表可以忽略this.subs.slice()
     var subs = this.subs.slice();
     if (!config.async) {
+      // 根据配置，对方法排序
       // subs aren't sorted in scheduler if not running async
       // we need to sort them now to make sure they fire in correct
       // order

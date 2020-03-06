@@ -3,7 +3,7 @@
  * @Author: yijian.song
  * @Date: 2019-11-25 16:28:53
  * @LastEditors: 
- * @LastEditTime: 2019-11-25 17:05:39
+ * @LastEditTime: 2019-12-06 14:05:37
  */
 
 
@@ -19,8 +19,14 @@
    * 2、支持的amd 就通过 define方法暴露出去
    * 3、通过window. 方式直接暴露
    */  
-  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
-    typeof define === 'function' && define.amd ? define(factory) :
+  typeof exports === 'object' && typeof module !== 'undefined' 
+  ? 
+    module.exports = factory() 
+  :
+    typeof define === 'function' && define.amd 
+    ? 
+      define(factory) 
+    :
       (global = global || self, global.Vue = factory());
 
 }(this, function () { 
