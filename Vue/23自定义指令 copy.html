@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>23、 指令</title>
+  <script src=" https://cdn.bootcdn.net/ajax/libs/vue/2.6.11/vue.js " type="text/javascript " charset="utf-8 "></script>
+</head>
+
+<body>
+  <h1>Vue.directive 自定义指令</h1>
+
+  <div id="box">
+    <p v-hi="hiState"> hi </p>
+    <button @click = "hiStatefn"> 显示 </button>
+  </div>
+
+  <script type="text/javascript ">
+
+    Vue.directive('hi', function (el,binding,vnode) {
+      // 这里将会被 `bind` 和 `update` 调用
+      // console.log(el,binding,vnode);
+      if(binding.value){
+        el.style = "background-color: yellow"
+      }else{
+        el.style = ""
+      }
+    })
+    // Vue.directive('hi',{
+    //   bind: function () { console.log('bind') },     // 数据变化
+    //   inserted: function () { console.log('inserted') },
+    //   update: function () { console.log('update') },
+    //   componentUpdated: function () { console.log('componentUpdated') },
+    //   unbind: function () { console.log('unbind') }
+    // })
+
+    // console.log(Vue);
+    
+    var vm = new Vue({
+      el: "#box ",
+      data: {
+        hiState:1
+      },
+      created: function () {
+      },
+      methods: {
+        hiStatefn(){
+          this.hiState = !this.hiState
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>
