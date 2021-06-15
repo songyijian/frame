@@ -2,57 +2,56 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <title>22、slot 插槽</title>
-    <script src="./vue.min.js">
-    </script>
+  <meta charset="UTF-8" />
+  <title>22、slot 插槽</title>
+  </script>
 </head>
 
 <body>
-    <h1>slot 插槽：dom形式传参方式，接收dom</h1>
-    <div id="box">
-        <h3></h3>
-        <div>
-            <p>{{getData}}</p>
-            <ul>
-                <lis v-for="(item,index) in list" :oitem="item">
-                    <span>{{index}}_slot插槽dom:</span>
-                </lis>
-            </ul>
-        </div>
+  <h1>slot 插槽：dom形式传参方式，接收dom</h1>
+  <div id="box">
+    <h3></h3>
+    <div>
+      <p>{{getData}}</p>
+      <ul>
+        <lis v-for="(item,index) in list" :oitem="item">
+          <span>{{index}}_slot插槽dom:</span>
+        </lis>
+      </ul>
     </div>
+  </div>
 
-    <script src=" https://cdn.bootcdn.net/ajax/libs/vue/2.6.11/vue.js " type="text/javascript " charset="utf-8 "></script>
-    <script type="text/javascript ">
-        Vue.component("lis", {
-            props: ['oitem'],
-            template: `<li v-on:click="getFn(oitem)"><slot></slot> | props: {{oitem}}</li>`,
-            data() {
-                return ({})
-            },
-            methods: {
-                getFn(val) {
-                    this.$root.$emit('change', val);
-                }
-            }
+  <script src=" https://cdn.bootcdn.net/ajax/libs/vue/2.6.11/vue.js " type="text/javascript " charset="utf-8 "></script>
+  <script type="text/javascript ">
+    Vue.component("lis", {
+      props: ['oitem'],
+      template: `<li v-on:click="getFn(oitem)"><slot></slot> | props: {{oitem}}</li>`,
+      data() {
+        return ({})
+      },
+      methods: {
+        getFn(val) {
+          this.$root.$emit('change', val);
+        }
+      }
+    })
+    new Vue({
+      el: "#box ",
+      data: {
+        list: ['javascript', 'css', 'html', 'vue', 'css3', 'react', 'ejs', 'node'],
+        getData: null
+      },
+      created: function () {
+        this.$on("change", function (val) {
+          this.getData = val;
+          //alert(val)
         })
-        new Vue({
-            el: "#box ",
-            data: {
-                list: ['javascript', 'css', 'html', 'vue', 'css3', 'react', 'ejs', 'node'],
-                getData: null
-            },
-            created: function() {
-                this.$on("change", function(val) {
-                    this.getData = val;
-                    //alert(val)
-                })
-            },
-            methods: {
+      },
+      methods: {
 
-            }
-        })
-    </script>
+      }
+    })
+  </script>
 </body>
 
 </html>
